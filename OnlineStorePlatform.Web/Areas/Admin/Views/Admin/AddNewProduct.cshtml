@@ -1,0 +1,50 @@
+﻿@model IEnumerable<OnlineStorePlatform.Models.ViewModels.Category.CategoriesVm>
+
+@{
+    ViewBag.Title = "Add New Product";
+}
+
+<h1>Add New Product</h1>
+
+@using (Html.BeginForm())
+{
+    <div class="row add-product">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="text" class="form-control" id="image" name="Image">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="Name">
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" class="form-control" id="price" name="Price">
+            </div>
+            <div class="form-group">
+                @*<label for="selectCategory">Select Category:</label>
+                <select name="Category" class="form-control" id="selectCategory">*@
+
+                    @foreach (var catregory in Model)
+                    {
+                        //<input type="number" name="CategoryName" value="@Html.DisplayFor(vms => catregory.Id)" />
+                        //<label class="checkbox-inline"><input name="CategoriesName" type="checkbox" value="@Html.DisplayFor(vms => catregory.Name)">@Html.DisplayFor(vms => catregory.Name)</label>
+                        <label class="radio-inline">
+                            <input type="radio" value="@Html.DisplayFor(vms => catregory.Id)" name="CategoryId">@Html.DisplayFor(vms => catregory.Name)
+                        </label>
+                        //<option value="@Html.DisplayFor(vms => catregory.Id)">@Html.DisplayFor(vms => catregory.Name)</option>
+                    }
+                @*</select>*@
+                @*<input type="number" name="Category_Id" />*@
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" rows="5" id="description" name="Description"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-lg btn-info" />
+            </div>
+        </div>
+    </div>
+}

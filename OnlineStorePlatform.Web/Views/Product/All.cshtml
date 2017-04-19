@@ -1,0 +1,180 @@
+﻿@model OnlineStorePlatform.Models.ViewModels.Products.ProductListVm
+
+@{
+    ViewBag.Title = "All Products";
+}
+
+<div class="row products">
+    <div class="col-md-9 col-sm-7 col-xs-12 pull-right">
+        <div class="row">
+            @foreach (var vm in Model.Products)
+            {
+                <div class="col-md-4 col-sm-7 product">
+                    <div class="thumbnail">
+                        <a href="#">
+                            <img src="@Html.DisplayFor(vms=>vm.Image)" alt="Product">
+                        </a>
+                        <a href="/modal/content/" class="btn btn-info btn-block btn-sm" name="@Html.DisplayFor(vms=>vm.Id)" data-toggle="modal" data-target="#myModal">Quick View</a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">@Html.DisplayFor(vms => vm.Name)</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <a href="#"><img src="@Html.DisplayFor(vms=>vm.Image)" alt="Product" /></a>
+                                        <p>@Html.DisplayFor(vms => vm.Description)</p>
+                                        <h1>@Html.DisplayFor(vms => vm.Price)$</h1>
+                                        <p>@Html.DisplayFor(vms => vm.Category.Name)</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Buy</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                @*@Html.Partial("_ModalContent")*@
+                            </div>
+                        </div>
+                        <div class="caption">
+                            <h4>@Html.DisplayFor(vms => vm.Name)</h4>
+                            <h2>@Html.DisplayFor(vms => vm.Price)$</h2>
+                            <h4>@Html.DisplayFor(vms => vm.Category.Name)</h4>
+                            @*<p>
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fa fa-user fa-fw"></i>
+                                    Add To Card
+                                </a>
+                            </p>*@
+                            @using (Html.BeginForm("AddToCart", "Cart"))
+                            {
+                                //<div class="pull-right">
+                                @Html.HiddenFor(vms => vm.Id, new { Name = "productId" })
+                                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                <input type="submit" class="btn btn-primary" value="Add To Cart" />
+                                //</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            @*asdsadsadsadsadsadsadsad<div class="col-md-4 col-xs-6">
+                    <div class="box bg-color-1">
+                        <div class="box-img border-color-1 text-center">
+                            <a href="single-product.html">
+                                <img src="img/home/product/product-img1.jpg" alt="image" class="img-responsive">
+                            </a>
+                            <a data-toggle="modal" href=".quick-view" class="btn-block"><i class="fa fa-eye" aria-hidden="true"></i>Quick View</a>
+                        </div>
+                        <div class="box-info">
+                            <h4>Barbie Racing Car</h4>
+                            <div class="price">
+                                <span>$50</span>
+                            </div>
+                            <a href="cart-page.html" class="btn btn-primary "><i class="fa fa-shopping-basket " aria-hidden="true"></i>Add to Cart</a>
+                        </div>
+                    </div>
+                </div>asaasdsadsadsadasdsa*@
+        </div>
+        <div class="btn-group pull-right">
+            @Html.PageLinks(Model.PagingInfo, x => Url.Action("HomeProducts", new { page = x }))
+        </div>
+        @*<div class="pagerArea text-center">
+                <ul class="pager">
+                    <li class="prev"><a href="#"><i class="fa fa-arrow-left" aria-hidden="true"></i>Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">15</a></li>
+                    <li class="next"><a href="#">Next<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>*@
+    </div>
+
+    <div class="col-md-3 col-sm-5 col-xs-12 pull-left">
+        <aside>
+            <div class="panel panel-info courseSidebar">
+                <div class="panel-heading bg-color-1 border-color-1">
+                    <h3 class="panel-title">Search</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Your Search" aria-describedby="basic-addon2">
+                        <span class="input-group-addon" id="basic-addon2"><input class="btn btn-primary bg-color-1" type="submit" value="Search"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-warning courseSidebar">
+                <div class="panel-heading bg-color-2 border-color-2">
+                    <h3 class="panel-title">Filter By</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="lightDrop">
+                        <select name="guiest_id4" id="guiest_id4" class="select-drop" sb="82231036" style="display: none;">
+                            <option value="0">All Classes</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select><div id="sbHolder_82231036" class="sbHolder"><a id="sbToggle_82231036" href="#" class="sbToggle"></a><a id="sbSelector_82231036" href="#" class="sbSelector">All Classes</a><ul id="sbOptions_82231036" class="sbOptions" style="top: 50px; max-height: 253.333px; display: none;"><li><a href="#0" rel="0">All Classes</a></li><li><a href="#1" rel="1">One</a></li><li><a href="#2" rel="2">Two</a></li><li><a href="#3" rel="3">Three</a></li></ul></div>
+                    </div>
+                    <div class="lightDrop">
+                        <select name="guiest_id5" id="guiest_id5" class="select-drop" sb="18338095" style="display: none;">
+                            <option value="0">Ages</option>
+                            <option value="1">3</option>
+                            <option value="2">4</option>
+                            <option value="3">5</option>
+                        </select><div id="sbHolder_18338095" class="sbHolder"><a id="sbToggle_18338095" href="#" class="sbToggle"></a><a id="sbSelector_18338095" href="#" class="sbSelector">Ages</a><ul id="sbOptions_18338095" class="sbOptions" style="top: 50px; max-height: 183.333px; display: none;"><li><a href="#0" rel="0">Ages</a></li><li><a href="#1" rel="1">3</a></li><li><a href="#2" rel="2">4</a></li><li><a href="#3" rel="3">5</a></li></ul></div>
+                    </div>
+                    <div class="priceRange">
+                        <div class="price-slider-inner">
+                            <span class="amount-wrapper">
+                                Price:
+                                <input type="text" id="price-amount-1" readonly="">
+                                <strong>-</strong>
+                                <input type="text" id="price-amount-2" readonly="">
+                            </span>
+                            <div id="price-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span></div>
+                        </div>
+                        <input class="btn btn-primary bg-color-2" type="submit" value="Filter">
+                        <span class="priceLabel">Price: <strong>$12 - $30</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-success courseSidebar">
+                <div class="panel-heading bg-color-5 border-color-5">
+                    <h3 class="panel-title">Categories</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled categoryItem">
+                        @*@Html.Action("CreationVisualize")*@
+                        @Html.Action("Menu", "Nav")
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+
+
+
+
+@*@model  OnlineStorePlatform.Models.ViewModels.Products.ProductListModel
+
+    @{
+        ViewBag.Title = "Products";
+    }
+
+    @foreach (var p in Model.Products)
+    {
+        @Html.Partial("ProductSummary", p)
+    }
+
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
+       new { page = x, category = Model.CurrentCategory }))
+    </div>*@

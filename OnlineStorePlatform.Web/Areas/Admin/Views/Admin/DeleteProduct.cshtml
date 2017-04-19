@@ -1,0 +1,45 @@
+﻿@model OnlineStorePlatform.Models.ViewModels.Products.DeleteProductVm
+
+@{
+    ViewBag.Title = "Delete Product";
+}
+
+<hr />
+<hr />
+@using (Html.BeginForm())
+{
+    <div class="row delete-product">
+        <fieldset disabled>
+            <div class="form-group">
+                <img src="@Html.DisplayFor(vm=>vm.Image)" alt="Product" />
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(vm => vm.Image)
+                @Html.EditorFor(vm => vm.Image, new { htmlAttbutes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(vm => vm.Name)
+                @Html.EditorFor(vm => vm.Name, new { htmlAttbutes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(vm => vm.Price)
+                @Html.EditorFor(vm => vm.Price, new { htmlAttbutes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(vm => vm.Description)
+                @Html.EditorFor(vm => vm.Description, new { htmlAttbutes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(vm => vm.CategoriesName)
+                @Html.EditorFor(vm => vm.CategoriesName, new { htmlAttbutes = new { @class = "form-control" } })
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <input type="submit" value="Delete" class="form-group btn btn-danger btn-lg" />
+        </div>
+    </div>
+}

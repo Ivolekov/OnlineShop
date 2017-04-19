@@ -1,0 +1,15 @@
+﻿@model IEnumerable<OnlineStorePlatform.Models.ViewModels.Category.CategoriesVm>
+
+<div class="form-group">
+    @foreach (var catregory in Model)
+    {
+        //<input type="number" name="CategoryName" value="@Html.DisplayFor(vms => catregory.Id)" />
+        //<label class="checkbox-inline"><input name="CategoriesName" type="checkbox" value="@Html.DisplayFor(vms => catregory.Name)">@Html.DisplayFor(vms => catregory.Name)</label>
+        <label class="radio-inline">
+            <input type="radio" value="@Html.DisplayFor(vms => catregory.Id)" name="CategoryId">@Html.DisplayFor(vms => catregory.Name)
+        </label>
+        //<option value="@Html.DisplayFor(vms => catregory.Id)">@Html.DisplayFor(vms => catregory.Name)</option>
+    }
+    @*@Html.LabelFor(vm => vm.CategoryName)
+        @Html.EditorFor(vm => vm.CategoryName, new { htmlAttbutes = new { @class = "form-control" } })*@
+</div>

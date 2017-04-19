@@ -1,0 +1,17 @@
+﻿@model OnlineStorePlatform.Models.ViewModels.Account.RoleVm
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Assign</h2>
+
+@using (Html.BeginForm("Assign", "Adminmanager"))
+{
+    @Html.DropDownList("Role", ViewBag.Role as SelectList)
+
+    @*Make it Search Fielt*@
+    @Html.DropDownList("User", ViewBag.User as SelectList)
+
+    <input type="submit" value="Assign" />
+}
+<hr />

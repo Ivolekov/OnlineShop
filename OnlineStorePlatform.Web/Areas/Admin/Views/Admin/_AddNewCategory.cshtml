@@ -1,0 +1,43 @@
+﻿@using (Html.BeginForm("AddNewCategory", "Admin", FormMethod.Post))
+{
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Category</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image Url:</label>
+                        <input type="text" class="form-control" id="image" name="Image">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="_AddNewCategory()" class="btn btn-info" data-dismiss="modal">Add</button>
+                    <input class="btn btn-info" id="btnAdd" data-dismiss="modal" type="submit" value="Add" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+@section script{
+    <script type="text/javascript">
+        //$(function () {
+        //    $('#btnAdd').click(function () {
+        //        $('#modal-container').modal('hide');
+        //    });
+        //});
+        function _AddNewCategory() {
+            $("#myModal").load("/admin/AddNewCategory")
+        }
+    </script>
+}

@@ -1,0 +1,73 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.register {
+    color: orange;
+}
+
+#register-jumbotron {
+    margin-top: 5%;
+    background: url('http://dailysignal.com/wp-content/uploads/iStock_000069281027_Full_Cropped-1250x650.png') no-repeat center center;
+    /*filter: blur(10px);
+    opacity: 0.2;*/
+}
+
+#login-jumbotron {
+    margin-top: 5%;
+    /*background: url('http://www.freshphotography.com.au/melbourne/2012/06/balloon_photography_melbourne.jpg') no-repeat center center;
+    filter: blur(10px);
+    opacity: 2;*/
+}
+
+.form-horizontal {
+    filter: blur(0px);
+    opacity: 1;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 30%;
+    margin: auto;
+}
+
+.row > col-md-9 col-sm-7 col-xs-12 pull-right > .row > .product {
+    margin-top: 100px;
+    height: 650px;
+}
+
+table>tbody>tr>td>.img-categories {
+    width: 50px;
+    height: 50px;
+}
+.products{
+    margin-top:5%;
+}
+
+form>.add-category{
+    margin-top:40px;
+}
+div>form>.edit-category{
+    margin-top:40px;
+}

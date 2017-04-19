@@ -1,0 +1,27 @@
+﻿@model IEnumerable<OnlineStorePlatform.Models.ViewModels.Blog.ArticleViewModel>
+
+@{
+    Layout = "~/Areas/Blog/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "All Articles";
+}
+
+<h2>Articles</h2>
+@if (User.IsInRole("blogAuthor"))
+{
+    @Html.Action("CreationVisualize")
+}
+
+<section>
+    @foreach (var vm in Model)
+    {
+        <article>
+            <h3>@Html.DisplayFor(vms => vm.Title)</h3>
+            <p>@Html.DisplayFor(vms => vm.Content)</p>
+            <br />
+            <hr />
+            <br />
+            <span class="author">@Html.DisplayFor(vms => vm.Author.Name)</span>
+            <span class="publish-date">@Html.DisplayFor(vms => vm.PublishDate)</span>
+        </article>
+    }
+</section>

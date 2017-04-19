@@ -1,0 +1,34 @@
+﻿@model IEnumerable<string>
+
+@*@Html.ActionLink("All", "HomeProducts", "Product", new { @class = "btn btn-default btn-block btn-lg" })*@
+@Html.RouteLink("All",
+    new
+    {
+        controller = "Product",
+        action ="HomeProducts",
+        category ="all",
+        page =1
+    },
+         new
+         {
+             @class = "btn btn-default btn-block btn-lg"
+             + ("all" == ViewBag.SelectedCategory ? " btn-warning" : "")
+         }
+    )
+
+@foreach (var link in Model)
+{
+    @Html.RouteLink(link, new
+{
+    controller = "Product",
+    action = "HomeProducts",
+    category = link,
+    page = 1
+},
+         new
+         {
+             @class = "btn btn-default btn-block btn-lg"
+             + (link == ViewBag.SelectedCategory? " btn-warning" : "")
+         }
+    )
+}

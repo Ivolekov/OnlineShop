@@ -1,0 +1,43 @@
+﻿@model OnlineStorePlatform.Models.ViewModels.Category.EditCategoryVm
+
+@{
+    ViewBag.Title = "Edit Category";
+}
+<hr />
+<hr />
+@using (Html.BeginForm())
+{
+    <div class="row edit-category">
+        <div class="form-group">
+            <img src="@Html.DisplayFor(vm=>vm.Image)" alt="Category" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(vm => vm.Image)
+            @Html.EditorFor(vm => vm.Image, new { htmlAttbutes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(vm => vm.Name)
+            @Html.EditorFor(vm => vm.Name, new { htmlAttbutes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save Changes" class="form-group btn btn-warning btn-lg" />
+        </div>
+    </div>
+}
+@*<form method="post">
+        <input type="number" hidden="hidden" name="id" value="@Model.Id" />
+        <div class="form-group">
+            <label for="name">Name: </label>
+            <input id="name" class="form-control" type="text" value="@Model.Name" name="name" />
+        </div>
+        <div class="form-group">
+            <label for="isImporter">Is importer: </label>
+            <input id="isImporter" class="form-control" @if (Model.IsImporter) { @: checked="checked"
+                              } type="checkbox" name="isImporter" />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control" value="Edit" />
+        </div>
+    </form>*@
