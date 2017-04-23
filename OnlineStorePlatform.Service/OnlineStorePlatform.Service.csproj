@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountService.cs" />
     <Compile Include="AdminmanagerService.cs" />
     <Compile Include="AdminService.cs" />
     <Compile Include="BlogService.cs" />

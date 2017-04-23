@@ -12,7 +12,7 @@
                 <div class="col-md-4 col-sm-7 product">
                     <div class="thumbnail">
                         <a href="#">
-                            <img src="@Html.DisplayFor(vms=>vm.Image)" alt="Product">
+                            <img src="~/IMG/Products/@Html.DisplayFor(vms=>vm.Image)" alt="Product">
                         </a>
                         <a href="/modal/content/" class="btn btn-info btn-block btn-sm" name="@Html.DisplayFor(vms=>vm.Id)" data-toggle="modal" data-target="#myModal">Quick View</a>
                         <!-- Modal -->
@@ -26,7 +26,7 @@
                                         <h4 class="modal-title">@Html.DisplayFor(vms => vm.Name)</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <a href="#"><img src="@Html.DisplayFor(vms=>vm.Image)" alt="Product" /></a>
+                                        <a href="#"><img src="~/IMG/Products/@Html.DisplayFor(vms=>vm.Image)" alt="Product" /></a>
                                         <p>@Html.DisplayFor(vms => vm.Description)</p>
                                         <h1>@Html.DisplayFor(vms => vm.Price)$</h1>
                                         <p>@Html.DisplayFor(vms => vm.Category.Name)</p>

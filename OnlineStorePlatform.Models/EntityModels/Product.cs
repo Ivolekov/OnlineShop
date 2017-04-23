@@ -17,13 +17,20 @@
 
         public decimal Price { get; set; }
 
-        public string Image { get; set; }
-
         public virtual ICollection<Customer> Customer { get; set; }
 
         public int? CategoryId { get; set; }
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
+
+        [NotMapped]
+        public string Image
+        {
+            get
+            {
+                return this.Name + this.Id + ".png";
+            }
+        }
     }
 }

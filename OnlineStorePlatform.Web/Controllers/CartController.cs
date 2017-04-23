@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace OnlineStorePlatform.Web.Controllers
 {
+   // [Authorize]
     public class CartController : Controller
     {
         private CartService service;
@@ -30,8 +31,8 @@ namespace OnlineStorePlatform.Web.Controllers
             CartVm vm = new CartVm { Cart = cart, ReturnUrl = returnUrl };
             return this.View(vm);
         }
-        
 
+        [Authorize]
         public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
         {
             if (cart.Lines.Count() == 0)
@@ -53,6 +54,7 @@ namespace OnlineStorePlatform.Web.Controllers
         {
             return this.PartialView(cart);
         }
+        
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = this.service.GetProductById(productId);

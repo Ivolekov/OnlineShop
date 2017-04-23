@@ -46,7 +46,7 @@
             {
                 CategoryId = bind.CategoryId,
                 Description = bind.Description,
-                Image = bind.Image,
+                //Image = bind.Image,
                 Name = bind.Name,
                 Price = bind.Price,
 
@@ -76,7 +76,7 @@
         public void EditProduct(EditProductBm bind, int id)
         {
             Product model = this.Context.Products.Find(bind.Id);
-            model.Image = bind.Image;
+           // model.Image = bind.Image;
             model.Name = bind.Name;
             model.Price = bind.Price;
             model.Description = bind.Description;
