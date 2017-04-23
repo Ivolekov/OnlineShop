@@ -18,6 +18,14 @@
 
         public string Image { get; set; }
 
-        public virtual ICollection<string> CategoriesName { get; set; }
+        public string ImageUrl
+        {
+            get
+            {
+                return this.Name + this.Id + ".png";
+            }
+        }
+
+        public string CategoryName { get; set; }
     }
 }

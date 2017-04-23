@@ -12,10 +12,14 @@
     using Models.ViewModels.Products;
     using Models.BindingModels;
     using Models.Enums;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using System.Web;
 
     public class AdminService : Service
     {
         public AdminPageVm GetAdminPage()
+        //public ICollection<Product> GetAdminPage()
         {
             AdminPageVm vm = new AdminPageVm();
             IEnumerable<Category> categories = this.Context.Categories;
@@ -26,6 +30,8 @@
 
             vm.Categories = categoriesVms;
             vm.Products = productsVms;
+            //var products = this.Context.Products.OrderBy(p => p.Name).ToList();
+            //return products;
             return vm;
 
 
@@ -43,11 +49,22 @@
                 Image = bind.Image,
                 Name = bind.Name,
                 Price = bind.Price,
-                
+
             };
             this.Context.Products.Add(product);
             this.Context.SaveChanges();
         }
+
+        //Test datatable
+        public IEnumerable<GetAllProductsVm> GetAllProducts()
+        {
+            IEnumerable<Product> products = this.Context.Products.OrderBy(p => p.Name).ToList();
+            IEnumerable<GetAllProductsVm> vms = Mapper.Instance.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(products);
+
+            return vms;
+        }
+
+        //End test 
 
         public EditProductVm GetEditProduct(int id)
         {
@@ -100,10 +117,12 @@
             return vm;
         }
 
+        // public void EditCategory(EditCategoryBm bind, int id, string userId, HttpPostedFileBase image)
         public void EditCategory(EditCategoryBm bind, int id, string userId)
         {
             Category model = this.Context.Categories.Find(bind.Id);
-            model.Image = bind.Image;
+            //model.Image = new byte[image.ContentLength];
+            // image.InputStream.Read(bind.Image, 0, image.ContentLength);
             model.Name = bind.Name;
             this.Context.SaveChanges();
             this.AddLog(userId, OperationLog.Edit, "category");
@@ -130,7 +149,7 @@
                         // this.Context.SaveChanges();
                     }
                 }
-                
+
             }
 
             this.Context.Categories.Remove(category);
@@ -153,6 +172,18 @@
 
             this.Context.Logs.Add(log);
             this.Context.SaveChanges();
+        }
+
+        public void ChangeCategoryBindIdForImageFileName(AddNewCategoryBm bind)
+        {
+            var category = this.Context.Categories.OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
+            bind.Id = category.Id;
+        }
+
+        public void ChangeProductBindIdForImageFileName(AddNewProductBm bind)
+        {
+            var product = this.Context.Products.OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
+            bind.Id = product.Id;
         }
         #endregion
     }

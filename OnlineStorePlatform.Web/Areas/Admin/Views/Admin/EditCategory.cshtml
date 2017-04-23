@@ -5,15 +5,14 @@
 }
 <hr />
 <hr />
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditCategory", "Admin", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     <div class="row edit-category">
         <div class="form-group">
-            <img src="@Html.DisplayFor(vm=>vm.Image)" alt="Category" />
+            <img src="~/IMG/Categories/@Html.DisplayFor(vm=>vm.ImageUrl)" alt="Category" />
         </div>
         <div class="form-group">
-            @Html.LabelFor(vm => vm.Image)
-            @Html.EditorFor(vm => vm.Image, new { htmlAttbutes = new { @class = "form-control" } })
+            @Html.TextBoxFor(vm=>vm.ImageFile, new {@type="file" })
         </div>
 
         <div class="form-group">
@@ -26,18 +25,3 @@
         </div>
     </div>
 }
-@*<form method="post">
-        <input type="number" hidden="hidden" name="id" value="@Model.Id" />
-        <div class="form-group">
-            <label for="name">Name: </label>
-            <input id="name" class="form-control" type="text" value="@Model.Name" name="name" />
-        </div>
-        <div class="form-group">
-            <label for="isImporter">Is importer: </label>
-            <input id="isImporter" class="form-control" @if (Model.IsImporter) { @: checked="checked"
-                              } type="checkbox" name="isImporter" />
-        </div>
-        <div class="form-group">
-            <input type="submit" class="form-control" value="Edit" />
-        </div>
-    </form>*@

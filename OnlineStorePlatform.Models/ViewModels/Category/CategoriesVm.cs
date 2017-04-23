@@ -11,6 +11,12 @@
 
         public string Name { get; set; }
 
-        public string Image { get; set; }
+        public string Image
+        {
+            get
+            {
+                return this.Name + this.Id + ".png";
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model OnlineStorePlatform.Models.ViewModels.Admin.AdminPageVm
 
 @{
-    //Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Admin Panel";
 }
 
@@ -10,13 +10,14 @@
 
 <div class="row">
     <div class="col-sm-5 table-bordered">
-        <h3><strong>@Html.ActionLink("Add Category", "AddNewCategory", null, new { @class = "btn btn-lg btn-info", data_toggle = "modal", data_target = "#myModal"})</strong></h3>
-        @Html.Partial("_AddNewCategory")
+        <h3><strong>@Html.ActionLink("Add Category", "AddNewCategory", null, new { @class = "btn btn-lg btn-info"})</strong></h3>
+        @*<h3><strong>@Html.ActionLink("Add Category", "AddNewCategory", null, new { @class = "btn btn-lg btn-info", data_toggle = "modal", data_target = "#myModal" })</strong></h3>*@
+        @*@Html.Partial("_AddNewCategory")*@
         <table class="table table-hover">
             @foreach (var category in Model.Categories)
             {
                 <tr>
-                    <td><img src="@Html.DisplayFor(vm => category.Image)" alt="category" class="img-categories" /></td>
+                    <td><img src='~/IMG/Categories/@Html.DisplayFor(vm => category.Image)' alt="category" class="img-categories" /></td>
                     <td><h4>@Html.DisplayFor(vm => category.Name)</h4></td>
                     <td>@Html.ActionLink("Edit", "EditCategory", new { id = category.Id }, new { @class = "btn btn-lg btn-warning" })</td>
                     <td>@Html.ActionLink("Delete", "DeleteCategory", new { id = category.Id }, new { @class = "btn btn-lg btn-danger" })</td>
@@ -52,7 +53,7 @@
             {
                 <tr>
                     <td>
-                        <img src="@Html.DisplayFor(vm => product.Image)" alt="category" class="img-categories" />
+                        <img src="~/IMG/Products/@Html.DisplayFor(vm => product.Image)" alt="category" class="img-categories" />
                     </td>
                     <td class="col-sm-3">
                         <h4>@Html.DisplayFor(vm => product.Name)</h4>
@@ -80,21 +81,59 @@
     </div>
 </div>
 
+<div class="row">
+    <table id="myDatatable">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
 @*Modal Dialog JS*@
 @*@section scripts{
-    <script type="text/javascript">
-        $(function () {
-            $('body').on('click', '.modal-link', function (e) {
-                e.preventDefault();
-                $(this).attr('data-target', '#modal-container');
-                $(this).attr('data-toggle', 'modal');
+        <script type="text/javascript">
+            $(function () {
+                $('body').on('click', '.modal-link', function (e) {
+                    e.preventDefault();
+                    $(this).attr('data-target', '#modal-container');
+                    $(this).attr('data-toggle', 'modal');
+                });
+                $('body').on('click', '.modal-close-btn', function () {
+                    $('#modal-container').modal('hide');
+                });
+                $('#modal-container').on('hidden.bs.modal', function () {
+                    $(this).removeData('bs.modal');
+                });
             });
-            $('body').on('click', '.modal-close-btn', function () {
-                $('#modal-container').modal('hide');
-            });
-            $('#modal-container').on('hidden.bs.modal', function () {
-                $(this).removeData('bs.modal');
-            });
-        }); 
-    </script>
-}*@
+        </script>
+    }*@
+<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section Scripts{
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        var oTable = $('#myDatatable').DataTable({
+            "ajax": {
+                "url": '/admin/GetAllProducts',
+                "type": "get",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "Image", "autowidth": true },
+                { "data": "Name", "autowidth": true },
+                { "data": "CategoryName", "autowidth": true },
+                { "data": "Price", "autowidth": true },
+                { "data": "Description", "autowidth": true }
+            ]
+        })
+    })
+</script>
+}

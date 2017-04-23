@@ -3,15 +3,16 @@
     ViewBag.Title = "Edit Product";
 }
 <h1>Edit Product</h1>
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditProduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="row edit-product">
         <div class="form-group">
-            <img src="@Html.DisplayFor(vm=>vm.Image)" alt="Category" />
+            <img src="~/IMG/Products/@Html.DisplayFor(vm=>vm.ImageUrl)" alt="Category" />
         </div>
         <div class="form-group">
-            @Html.LabelFor(vm => vm.Image):
-            @Html.EditorFor(vm => vm.Image, new { htmlAttbutes = new { @class = "form-control" } })
+            @*@Html.LabelFor(vm => vm.Image):
+            @Html.EditorFor(vm => vm.Image, new { htmlAttbutes = new { @class = "form-control" } })*@
+            @Html.TextBoxFor(vm => vm.ImageFile, new { @type = "file", @class= "form-control" })
         </div>
 
         <div class="form-group">

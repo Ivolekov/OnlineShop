@@ -6,13 +6,13 @@
 
 <h1>Add New Product</h1>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     <div class="row add-product">
         <div class="col-lg-4">
             <div class="form-group">
                 <label for="image">Image:</label>
-                <input type="text" class="form-control" id="image" name="Image">
+                <input type="file" class="form-control" id="image" name="ImageFile">
             </div>
             <div class="form-group">
                 <label for="name">Name:</label>

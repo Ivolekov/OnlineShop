@@ -44,27 +44,27 @@ namespace OnlineStorePlatform.Data.Migrations
                 manager.Create(role);
             }
 
-            context.Categories.AddOrUpdate(cat=>cat.Name,
-                new Category()
-                {
-                    Name = "Dresses",
-                    Image = "http://themes.iamabdus.com/kidz/1.1/img/category/category-img1.jpg"
-                },
-                new Category()
-                {
-                    Name = "Toys",
-                    Image = "http://themes.iamabdus.com/kidz/1.1/img/category/category-img5.jpg"
-                },
-                new Category()
-                {
-                    Name = "Inner Wear",
-                    Image = "http://themes.iamabdus.com/kidz/1.1/img/category/category-img3.jpg"
-                },
-                new Category()
-                {
-                    Name = "Foot Wear",
-                    Image = "http://themes.iamabdus.com/kidz/1.1/img/category/category-img2.jpg"
-                });
+            //context.Categories.AddOrUpdate(cat=>cat.Name,
+            //    new Category()
+            //    {
+            //        Name = "Dresses",
+            //        Image = "http://themes.iamabdus.com/kidz/1.1/img/category/category-img1.jpg"
+            //    },
+            //    new Category()
+            //    {
+            //        Name = "Toys",
+            //        Image = "http://themes.iamabdus.com/kidz/1.1/img/category/category-img5.jpg"
+            //    },
+            //    new Category()
+            //    {
+            //        Name = "Inner Wear",
+            //        Image = "http://themes.iamabdus.com/kidz/1.1/img/category/category-img3.jpg"
+            //    },
+            //    new Category()
+            //    {
+            //        Name = "Foot Wear",
+            //        Image = "http://themes.iamabdus.com/kidz/1.1/img/category/category-img2.jpg"
+            //    });
 
             int category = context.Categories.Count();
             Random rnd = new Random();

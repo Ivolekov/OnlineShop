@@ -1,6 +1,9 @@
 ﻿namespace OnlineStorePlatform.Models.EntityModels
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
+
     public class Category
     {
         public Category()
@@ -11,8 +14,9 @@
 
         public string Name { get; set; }
 
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
 
-       // public virtual ICollection<Product> Products { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 {
     using EntityModels;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
 
     public class AddNewProductBm
     {
@@ -16,5 +18,8 @@
         public string Image { get; set; }
 
         public int CategoryId { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

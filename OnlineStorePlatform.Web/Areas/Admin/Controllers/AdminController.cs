@@ -1,6 +1,7 @@
 ﻿namespace OnlineStorePlatform.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNet.Identity;
+    using Models.EntityModels;
     using Models.ViewModels.Products;
     using OnlineStorePlatform.Models.BindingModels;
     using OnlineStorePlatform.Models.ViewModels.Admin;
@@ -33,13 +34,21 @@
         [Route]
         public ActionResult Index()
         {
-            AdminPageVm vm = this.service.GetAdminPage();
+            var vm = this.service.GetAdminPage();
             return View(vm);
+            //var products = this.service.GetAdminPage();
+            //return Json(new { data = products }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetAllProducts()
+        {
+            var products = this.service.GetAllProducts();
+            return Json(new { data = products }, JsonRequestBehavior.AllowGet);
         }
 
         #region Products
         //TODO: add product with existiong category
-            #region Add
+        #region Add
         [HttpGet]
         [Route("add/product")]
         public ActionResult AddNewProduct()
@@ -55,13 +64,15 @@
             if (this.ModelState.IsValid)
             {
                 this.service.AddNewProduct(bind);
-                return this.Redirect("admin");
+                this.service.ChangeProductBindIdForImageFileName(bind);
+                bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
+                return this.RedirectToAction("Index");
             }
             return this.View();
         }
         #endregion
         //TODO: edit product categories
-            #region Edit
+        #region Edit
         [HttpGet]
         [Route("edit/product/{id}")]
         public ActionResult EditProduct(int id)
@@ -75,11 +86,12 @@
         public ActionResult EditProduct(EditProductBm bind, int id)
         {
             this.service.EditProduct(bind, id);
-            return this.Redirect("admin");
+            bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
+            return this.RedirectToAction("Index");
         }
         #endregion
 
-            #region Delete
+        #region Delete
         [HttpGet]
         [Route("delete/product/{id}")]
         public ActionResult DeleteProduct(int id)
@@ -93,7 +105,7 @@
         public ActionResult DeleteProduct(DeleteProductBm bind)
         {
             this.service.DeleteProduct(bind);
-            return this.Redirect("admin");
+            return this.RedirectToAction("Index");
         }
         #endregion
 
@@ -101,10 +113,10 @@
 
         #region Categories
 
-             #region Add
+        #region Add
         [HttpGet]
         [Route("add/category")]
-        public ActionResult _AddNewCategory()
+        public ActionResult AddNewCategory()
         {
             //return this.PartialView("_AddNewCategory.cshtml");
             return this.View();
@@ -112,21 +124,23 @@
 
         [HttpPost]
         [Route("add/category")]
-        public ActionResult _AddNewCategory(AddNewCategoryBm bind)
+        public ActionResult AddNewCategory(AddNewCategoryBm bind)
         {
             if (this.ModelState.IsValid)
             {
                 var userId = User.Identity.GetUserId();
 
                 this.service.AddNewCategory(bind, userId);
-                return this.Redirect("admin");
+                this.service.ChangeCategoryBindIdForImageFileName(bind);
+                bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Categories/") + bind.Name + bind.Id + ".png");
+                return this.RedirectToAction("Index");
             }
             return this.View();
         }
 
         #endregion
 
-             #region Edit
+        #region Edit
         [HttpGet]
         [Route("edit/category/{id}")]
         public ActionResult EditCategory(int id)
@@ -141,11 +155,12 @@
         {
             var userId = User.Identity.GetUserId();
             this.service.EditCategory(bind, id, userId);
-            return this.Redirect("admin");
+            bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Categories/") + bind.Name + bind.Id + ".png");
+            return this.RedirectToAction("Index");
         }
-            #endregion
+        #endregion
 
-             #region Delete
+        #region Delete
         [HttpGet]
         [Route("delete/category/{id}")]
         public ActionResult DeleteCategory(int id)
@@ -160,7 +175,7 @@
         {
             var userId = User.Identity.GetUserId();
             this.service.DeleteCategory(bind, userId);
-            return this.Redirect("admin");
+            return this.RedirectToAction("Index");
         }
         #endregion
 
