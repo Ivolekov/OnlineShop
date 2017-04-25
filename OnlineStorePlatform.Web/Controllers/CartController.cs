@@ -1,4 +1,7 @@
-﻿using OnlineStorePlatform.Models.EntityModels;
+﻿using Microsoft.AspNet.Identity;
+using OnlineStorePlatform.Data;
+using OnlineStorePlatform.Models.BindingModels.Cart;
+using OnlineStorePlatform.Models.EntityModels;
 using OnlineStorePlatform.Models.EntityModels.Cart;
 using OnlineStorePlatform.Models.ViewModels.Cart;
 using OnlineStorePlatform.Service;
@@ -12,7 +15,7 @@ using System.Web.Mvc;
 
 namespace OnlineStorePlatform.Web.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     public class CartController : Controller
     {
         private CartService service;
@@ -41,9 +44,14 @@ namespace OnlineStorePlatform.Web.Controllers
             }
             if (ModelState.IsValid)
             {
+                var user = User.Identity.GetUserId();
+                Customer customerEntity = this.service.AddProductsToCustomer(cart.Lines, user);
+                this.service.AddOrderToDatabase(customerEntity);
+                this.service.AddDataToShippingDetails(shippingDetails, user);
                 orderProcessor.ProcessOrder(cart, shippingDetails);
                 cart.Clear();
                 return View("Completed");
+
             }
             else
             {
@@ -54,7 +62,7 @@ namespace OnlineStorePlatform.Web.Controllers
         {
             return this.PartialView(cart);
         }
-        
+
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = this.service.GetProductById(productId);
@@ -64,7 +72,7 @@ namespace OnlineStorePlatform.Web.Controllers
                 cart.AddItem(product, 1);
             }
 
-            return this.RedirectToAction("Index", new { returnUrl});
+            return this.RedirectToAction("Index", new { returnUrl });
         }
 
         public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
@@ -84,7 +92,7 @@ namespace OnlineStorePlatform.Web.Controllers
         {
             Cart cart = (Cart)Session["Cart"];
 
-            if (cart==null)
+            if (cart == null)
             {
                 cart = new Cart();
                 Session["Cart"] = cart;

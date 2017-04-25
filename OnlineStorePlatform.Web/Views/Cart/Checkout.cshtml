@@ -16,7 +16,8 @@
     <h3>Address</h3>
     foreach (var property in ViewData.ModelMetadata.Properties)
     {
-        if (property.PropertyName != "Name" && property.PropertyName != "GiftWrap")
+
+        if (property.PropertyName != "Name" && property.PropertyName != "GiftWrap" && property.PropertyName != "OrderId"&& property.PropertyName != "Email")
         {
             <div class="form-group">
                 <label>

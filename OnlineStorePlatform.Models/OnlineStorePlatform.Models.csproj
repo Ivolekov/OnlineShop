@@ -101,6 +101,7 @@
     <Compile Include="BindingModels\AddNewCategoryBm.cs" />
     <Compile Include="BindingModels\AddNewProductBm.cs" />
     <Compile Include="BindingModels\Cart\CartBm.cs" />
+    <Compile Include="BindingModels\Cart\CustomerBm.cs" />
     <Compile Include="BindingModels\DeleteCategoryBm.cs" />
     <Compile Include="BindingModels\DeleteProductBm.cs" />
     <Compile Include="BindingModels\EditCategoryBm.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="ViewModels\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="ViewModels\Order\OrderVm.cs" />
     <Compile Include="ViewModels\Products\DeleteProductVm.cs" />
     <Compile Include="ViewModels\Products\EditProductVm.cs" />
     <Compile Include="ViewModels\Products\GetAllProductsVm.cs" />

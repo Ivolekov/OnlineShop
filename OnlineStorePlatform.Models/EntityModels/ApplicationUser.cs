@@ -9,11 +9,11 @@
     {
         public ApplicationUser()
         {
-            this.Products = new HashSet<Product>();
+            //this.Products = new HashSet<Product>();
         }
         public string Name { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        //public ICollection<Product> Products { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

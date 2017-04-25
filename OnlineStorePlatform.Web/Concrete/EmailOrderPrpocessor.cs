@@ -29,7 +29,7 @@
 
 
                 StringBuilder body = new StringBuilder()
-                    .AppendLine("A new order has been submitted")
+                    .AppendLine("A new order has been submitted with ID:" + shippingInfo.OrderId.ToString())
                     .AppendLine("---")
                     .AppendLine("Items:");
                 foreach (var line in cart.Lines)
@@ -42,9 +42,13 @@
                 }
                 body.AppendFormat("Total order value: {0:c}",
                     cart.ComputeTotalValue())
+                    .AppendLine()
+                    .Append("Order Id ")
+                    .AppendLine(shippingInfo.OrderId.ToString())
                     .AppendLine("---")
                     .AppendLine("Ship to:")
                     .AppendLine(shippingInfo.Name)
+                    .AppendLine(shippingInfo.Email)
                     .AppendLine(shippingInfo.Line1)
                     .AppendLine(shippingInfo.Line2 ?? "")
                     .AppendLine(shippingInfo.Line3 ?? "")
@@ -57,7 +61,7 @@
                         shippingInfo.GiftWrap ? "Yes" : "No");
                 MailMessage mailMessage = new MailMessage(new MailAddress(emailSettings.MailFromAddress).Address,
                     new MailAddress(emailSettings.MailToAddress).Address,
-                    "New order submitted!",
+                    "New order with ID: " + shippingInfo.OrderId.ToString() + " submitted!",
                     body.ToString());
 
                 smtpClient.Send(mailMessage);

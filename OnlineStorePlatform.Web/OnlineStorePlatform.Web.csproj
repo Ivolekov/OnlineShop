@@ -366,6 +366,7 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\Summary.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Adminmanager\Orders.cshtml" />
     <None Include="Views\Cart\Completed.cshtml" />
     <Content Include="Views\Log\All.cshtml" />
     <Content Include="Views\Product\_ModalContent.cshtml" />

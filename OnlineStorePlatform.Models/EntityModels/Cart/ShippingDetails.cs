@@ -1,11 +1,16 @@
 ﻿namespace OnlineStorePlatform.Models.EntityModels.Cart
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class ShippingDetails
     {
+        public int OrderId { get; set; }
+
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
+
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Please enter the first address line")]
         [Display(Name = "Line 1")]

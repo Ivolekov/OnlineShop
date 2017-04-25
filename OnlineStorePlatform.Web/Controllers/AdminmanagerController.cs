@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using OnlineStorePlatform.Models.EntityModels;
 using OnlineStorePlatform.Models.ViewModels.Account;
+using OnlineStorePlatform.Models.ViewModels.Order;
 using OnlineStorePlatform.Service;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,13 @@ namespace OnlineStorePlatform.Web.Controllers
         {
             this.service.AssignRole(rvm);
             return Redirect("Roles");
+        }
+
+        [HttpGet]
+        public ActionResult Orders()
+        {
+            IEnumerable<OrderVm> vms = this.service.GetAllOrders();
+            return this.View(vms);
         }
     }
 }

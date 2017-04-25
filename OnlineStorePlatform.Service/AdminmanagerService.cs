@@ -10,6 +10,8 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Models.ViewModels.Order;
+    using AutoMapper;
 
     public class AdminmanagerService : Service
     {
@@ -39,6 +41,13 @@
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.Context));//this.Context
             var user = userManager.FindById(rvm.User);
             userManager.AddToRole(rvm.User, rvm.Role);
+        }
+
+        public IEnumerable<OrderVm> GetAllOrders()
+        {
+            IEnumerable<Order> orders = this.Context.Orders;
+            IEnumerable<OrderVm> vms = Mapper.Map<IEnumerable<Order>, IEnumerable<OrderVm>>(orders);
+            return vms;
         }
     }
 }

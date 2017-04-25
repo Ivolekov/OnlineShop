@@ -6,6 +6,7 @@ using OnlineStorePlatform.Models.EntityModels;
 using OnlineStorePlatform.Models.EntityModels.Cart;
 using OnlineStorePlatform.Models.ViewModels.Blog;
 using OnlineStorePlatform.Models.ViewModels.Category;
+using OnlineStorePlatform.Models.ViewModels.Order;
 using OnlineStorePlatform.Models.ViewModels.Products;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace OnlineStorePlatform.Web
     {
         protected void Application_Start()
         {
-            ConfigerMapper(Data.Data.Context);
+            ConfigerMapper();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -33,7 +34,7 @@ namespace OnlineStorePlatform.Web
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<OnlineStorePlatformContext>());
         }
 
-        private void ConfigerMapper(OnlineStorePlatformContext context)
+        private void ConfigerMapper()
         {
             Mapper.Initialize(expresion =>
             {
@@ -62,6 +63,8 @@ namespace OnlineStorePlatform.Web
                 expresion.CreateMap<Product, DeleteProductVm>();
 
                 expresion.CreateMap<Article, ArticleViewModel>();
+
+                expresion.CreateMap<Order, OrderVm>();
             });
         }
     }
