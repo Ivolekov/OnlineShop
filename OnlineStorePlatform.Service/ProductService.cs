@@ -15,7 +15,7 @@
     {
         public const int PageSize = 6;
         //public IEnumerable<GetAllProductsVm> GatAllProducts(int page)
-        public ProductListVm GatProducts(string category, int page)
+        public ProductListVm GatProductsByCategory(string category, int page)
         {
             ProductListVm model = new ProductListVm
             {
@@ -52,7 +52,7 @@
             ProductListVm model = new ProductListVm
             {
                 Products = this.Context.Products
-               .OrderBy(p => p.Id)
+               .OrderBy(pro => pro.Id)
                .Skip((page - 1) * PageSize)
                .Take(PageSize),
 
@@ -66,5 +66,51 @@
 
             return model;
         }
+
+        public ProductListVm GetProducts(int page, string search)
+        {
+            ProductListVm model = new ProductListVm
+            {
+                Products = this.Context.Products.Where(product=>product.Name.StartsWith(search))
+               .OrderBy(pro => pro.Id)
+               .Skip((page - 1) * PageSize)
+               .Take(PageSize),
+
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = this.Context.Products.Count()
+                }
+            };
+
+            return model;
+        }
+
+        public List<string> GetProductsAsString(string term)
+        {
+            return this.Context.Products.Where(product => product.Name.StartsWith(term)).Select(p => p.Name).ToList();
+        }
+
+        //public ProductListVm GetData(string searchText)
+        //{
+
+        //    IEnumerable<Product> products = this.Context.Products.Where(p => p.Name.Contains(searchText));
+        //    ProductListVm model = new ProductListVm
+        //    {
+        //        Products = this.Context.Products
+        //      .OrderBy(pro => pro.Id)
+        //      //.Skip((page - 1) * PageSize)
+        //      .Take(PageSize),
+
+        //        PagingInfo = new PagingInfo
+        //        {
+        //           // CurrentPage = page,
+        //            ItemsPerPage = PageSize,
+        //            TotalItems = this.Context.Products.Count()
+        //        }
+        //    };
+        //    return model;
+        //}
     }
 }

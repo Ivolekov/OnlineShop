@@ -35,16 +35,55 @@
             
             //TODO if products didn't found redirect to appropriate page!!!!
             //IEnumerable<GetAllProductsVm> vms = this.service.GatAllProducts(page);
-            vms = this.service.GatProducts(category, page);
+            vms = this.service.GatProductsByCategory(category, page);
             return this.View(vms);
         }
 
-        [Route("all/page{page}")]
-        public ActionResult AllProducts(int page)
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("{category}/page{page}")]
+        public ActionResult HomeProducts(string category, int page, string search)
         {
-            ProductListVm vms = this.service.GetAllProducts(page);
+            ProductListVm vms = new ProductListVm();
+            if (string.IsNullOrEmpty(search))
+            {
+                if (category == "all")
+                {
+                    vms = this.service.GetAllProducts(page);
+                    return this.View("All", vms);
+                }
+
+                //TODO if products didn't found redirect to appropriate page!!!!
+                //IEnumerable<GetAllProductsVm> vms = this.service.GatAllProducts(page);
+                vms = this.service.GatProductsByCategory(category, page);
+            }
+            else
+            {
+                vms = this.service.GetProducts(page, search);
+            }
             return this.View(vms);
         }
+
+
+        public JsonResult GetProductsJson(string term)
+        {
+            List<string> products = new List<string>();
+            products = this.service.GetProductsAsString(term);
+            return this.Json(products, JsonRequestBehavior.AllowGet);
+        }
+        //[Route("all/page{page}")]
+        //public ActionResult AllProducts(int page)
+        //{
+        //    ProductListVm vms = this.service.GetAllProducts(page);
+        //    return this.View(vms);
+        //}
+
+        //[Route("{category}||all/page{page}/{searchText}")]
+        //public ActionResult GetSearchProduct(string searchText)
+        //{
+        //    ProductListVm vm = this.service.GetData(searchText);
+        //    return this.PartialView("SearchPartial", vm);
+        //}
 
         //TODO: DELETE THIS METHOD
         [ChildActionOnly]

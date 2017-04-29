@@ -370,6 +370,7 @@
     <None Include="Views\Cart\Completed.cshtml" />
     <Content Include="Views\Log\All.cshtml" />
     <Content Include="Views\Product\_ModalContent.cshtml" />
+    <Content Include="Views\Product\SearchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
