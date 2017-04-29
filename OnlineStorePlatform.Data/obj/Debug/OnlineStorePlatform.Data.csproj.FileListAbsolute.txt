@@ -28,3 +28,5 @@ D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePl
 D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Data\bin\Debug\System.Web.WebPages.Razor.xml
 D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Data\bin\Debug\System.Web.WebPages.xml
 D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Data\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Data\bin\Debug\PagedList.dll
+D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Data\bin\Debug\PagedList.xml

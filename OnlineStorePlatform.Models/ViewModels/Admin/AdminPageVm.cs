@@ -2,12 +2,13 @@
 {
     using Category;
     using EntityModels;
+    using PagedList;
     using Products;
     using System.Collections.Generic;
     public class AdminPageVm
     {
-        public IEnumerable<GetAllProductsVm> Products { get; set; }
+        public IPagedList<GetAllProductsVm> Products { get; set; }
 
-        public IEnumerable<CategoriesVm> Categories { get; set; }
+        public IPagedList<CategoriesVm> Categories { get; set; }
     }
 }

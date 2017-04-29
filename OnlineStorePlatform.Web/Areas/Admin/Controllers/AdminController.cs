@@ -12,6 +12,8 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using PagedList;
+    using PagedList.Mvc;
     using System.Web.Security;
 
     [Authorize(Roles = "admin, manager")]
@@ -32,9 +34,10 @@
 
         [HttpGet]
         [Route]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var vm = this.service.GetAdminPage();
+            var vm = this.service.GetAdminPage(page);
+
             return View(vm);
             //var products = this.service.GetAdminPage();
             //return Json(new { data = products }, JsonRequestBehavior.AllowGet);

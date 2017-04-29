@@ -118,3 +118,7 @@ D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePl
 D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Web\bin\Ninject.xml
 D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Web\bin\Ninject.Web.Common.xml
 D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Web\bin\Ninject.Web.Mvc.xml
+D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Web\bin\PagedList.dll
+D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Web\bin\PagedList.Mvc.dll
+D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Web\bin\PagedList.xml
+D:\MyPrograms\SoftUni_3.0\03.C#_Web\02.C# MVC Frameworks - ASP.NET\OnlineStorePlatform\OnlineStorePlatform.Web\bin\PagedList.Mvc.xml

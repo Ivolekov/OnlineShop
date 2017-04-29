@@ -1,4 +1,6 @@
-﻿@model OnlineStorePlatform.Models.ViewModels.Admin.AdminPageVm
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model OnlineStorePlatform.Models.ViewModels.Admin.AdminPageVm
 
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -24,8 +26,9 @@
                 </tr>
             }
         </table>
+        @Html.PagedListPager(Model.Categories, page=>Url.Action("Index", new { page}), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
     </div>
-    <div class="col-sm-5 table-bordered">
+    @*<div class="col-sm-5 table-bordered">
         <table class="table">
             <tr>
                 <th>Role</th>
@@ -35,7 +38,7 @@
                 <td></td>
             </tr>
         </table>
-    </div>
+    </div>*@
 </div>
 
 <div class="row">
@@ -78,10 +81,11 @@
                 </tr>
             }
         </table>
+        @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
     </div>
 </div>
 
-<div class="row">
+@*<div class="row">
     <table id="myDatatable">
         <thead>
             <tr>
@@ -95,7 +99,7 @@
             </tr>
         </thead>
     </table>
-</div>
+</div>*@
 
 @*Modal Dialog JS*@
 @*@section scripts{
@@ -115,7 +119,7 @@
             });
         </script>
     }*@
-<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />
+@*<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />
 @section Scripts{
 <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script>
@@ -136,4 +140,4 @@
         })
     })
 </script>
-}
+}*@

@@ -12,13 +12,15 @@
     using Models.ViewModels.Products;
     using Models.BindingModels;
     using Models.Enums;
+
     using System.Web.Helpers;
     using System.Web.Mvc;
     using System.Web;
+    using PagedList;
 
     public class AdminService : Service
     {
-        public AdminPageVm GetAdminPage()
+        public AdminPageVm GetAdminPage(int? page)
         //public ICollection<Product> GetAdminPage()
         {
             AdminPageVm vm = new AdminPageVm();
@@ -28,8 +30,8 @@
             IEnumerable<CategoriesVm> categoriesVms = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoriesVm>>(categories);
             IEnumerable<GetAllProductsVm> productsVms = Mapper.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(products);
 
-            vm.Categories = categoriesVms;
-            vm.Products = productsVms;
+            vm.Categories = categoriesVms.ToPagedList(page ?? 1, 3);
+            vm.Products = productsVms.ToPagedList(page ?? 1, 3);
             //var products = this.Context.Products.OrderBy(p => p.Name).ToList();
             //return products;
             return vm;
