@@ -20,12 +20,25 @@
 
     public class AdminService : Service
     {
-        public AdminPageVm GetAdminPage(int? page)
+        public AdminPageVm GetAdminPage(int? page, string search)
         //public ICollection<Product> GetAdminPage()
         {
+
             AdminPageVm vm = new AdminPageVm();
             IEnumerable<Category> categories = this.Context.Categories;
-            IEnumerable<Product> products = this.Context.Products;
+            IEnumerable<Product> products;
+
+            if (string.IsNullOrEmpty(search))
+            {
+                //categories = this.Context.Categories;
+                products = this.Context.Products;
+
+            }
+            else
+            {
+               // categories = this.Context.Categories.Where(category => category.Name.StartsWith(search));
+                products = this.Context.Products.Where(product => product.Name.StartsWith(search));
+            }
 
             IEnumerable<CategoriesVm> categoriesVms = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoriesVm>>(categories);
             IEnumerable<GetAllProductsVm> productsVms = Mapper.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(products);
@@ -143,14 +156,14 @@
 
             foreach (var product in this.Context.Products)
             {
-                if (product.CategoryId != null)
-                {
+                //if (product.CategoryId != null)
+                //{
                     if (category.Id == product.Category.Id)
                     {
                         product.Category = null;
                         // this.Context.SaveChanges();
                     }
-                }
+               // }
 
             }
 
@@ -174,6 +187,11 @@
 
             this.Context.Logs.Add(log);
             this.Context.SaveChanges();
+        }
+
+        public List<string> GetGategoriesAsString(string term)
+        {
+            return this.Context.Categories.Where(category => category.Name.StartsWith(term)).Select(p => p.Name).ToList();
         }
 
         public void ChangeCategoryBindIdForImageFileName(AddNewCategoryBm bind)

@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="col-sm-5 table-bordered">
-        <h3><strong>@Html.ActionLink("Add Category", "AddNewCategory", null, new { @class = "btn btn-lg btn-info"})</strong></h3>
+        <h3><strong>@Html.ActionLink("Add Category", "AddNewCategory", null, new { @class = "btn btn-lg btn-info" })</strong></h3>
         @*<h3><strong>@Html.ActionLink("Add Category", "AddNewCategory", null, new { @class = "btn btn-lg btn-info", data_toggle = "modal", data_target = "#myModal" })</strong></h3>*@
         @*@Html.Partial("_AddNewCategory")*@
         <table class="table table-hover">
@@ -26,24 +26,35 @@
                 </tr>
             }
         </table>
-        @Html.PagedListPager(Model.Categories, page=>Url.Action("Index", new { page}), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+        @Html.PagedListPager(Model.Categories, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
     </div>
     @*<div class="col-sm-5 table-bordered">
-        <table class="table">
-            <tr>
-                <th>Role</th>
-                <th>Count</th>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-        </table>
-    </div>*@
+            <table class="table">
+                <tr>
+                    <th>Role</th>
+                    <th>Count</th>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+        </div>*@
 </div>
-
+<br />
+<br /><br />
 <div class="row">
     <div class="col-sm-12 table-bordered">
-        <h3>@Html.ActionLink("Add Product", "AddNewProduct", null, new { @class = "btn btn-lg btn-info" })</h3>
+        <div class="row">
+            <div class="pull-left">@Html.ActionLink("Add Product", "AddNewProduct", null, new { @class = "btn btn-lg btn-info" })</div>
+            <div class="pull-right">
+                @using (Html.BeginForm())
+                  {
+                    @Html.TextBox("searchAdmin", null, new {@class="form-control", id = "searchAdmin" })
+                    @*<input type="text" id="searchProducts" name="searchProducts" class="form-control" placeholder="Enter Your Search" aria-describedby="basic-addon2">*@
+                    <input class="btn btn-primary form-control" type="submit" value="Search">
+                  }
+            </div>
+        </div>
         <table class="table table-hover">
             <tr>
                 <th>Image</th>
@@ -84,22 +95,33 @@
         @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
     </div>
 </div>
+@section Scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#searchAdmin").autocomplete({
+                @*source: '@Url.Action("GetProductsJson")',*@
+                minLength: 1
+            });
+        });
+    </script>
+}
 
 @*<div class="row">
-    <table id="myDatatable">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Category Name</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-    </table>
-</div>*@
+        <table id="myDatatable">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Category Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>*@
 
 @*Modal Dialog JS*@
 @*@section scripts{
@@ -120,24 +142,24 @@
         </script>
     }*@
 @*<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />
-@section Scripts{
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script>
-    $(document).ready(function () {
-        var oTable = $('#myDatatable').DataTable({
-            "ajax": {
-                "url": '/admin/GetAllProducts',
-                "type": "get",
-                "datatype": "json"
-            },
-            "columns": [
-                { "data": "Image", "autowidth": true },
-                { "data": "Name", "autowidth": true },
-                { "data": "CategoryName", "autowidth": true },
-                { "data": "Price", "autowidth": true },
-                { "data": "Description", "autowidth": true }
-            ]
+    @section Scripts{
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script>
+        $(document).ready(function () {
+            var oTable = $('#myDatatable').DataTable({
+                "ajax": {
+                    "url": '/admin/GetAllProducts',
+                    "type": "get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Image", "autowidth": true },
+                    { "data": "Name", "autowidth": true },
+                    { "data": "CategoryName", "autowidth": true },
+                    { "data": "Price", "autowidth": true },
+                    { "data": "Description", "autowidth": true }
+                ]
+            })
         })
-    })
-</script>
-}*@
+    </script>
+    }*@

@@ -7,60 +7,67 @@
 <div class="row products">
     <div class="col-md-9 col-sm-7 col-xs-12 pull-right">
         <div class="row" id="productsRow">
-            @foreach (var vm in Model.Products)
+            @if (Model.Products.Count() < 1)
+            {
+                <h1>Product not found</h1>
+            }
+            else
+            {
+            foreach (var vm in Model.Products)
             {
 
-            <div class="col-md-4 col-sm-7 product">
-                <div class="thumbnail">
-                    <a href="#">
-                        <img src="~/IMG/Products/@Html.DisplayFor(vms=>vm.Image)" alt="Product">
-                    </a>
-                    <a href="/modal/content/" class="btn btn-info btn-block btn-sm" name="@Html.DisplayFor(vms=>vm.Id)" data-toggle="modal" data-target="#myModal">Quick View</a>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog modal-lg">
+                <div class="col-md-4 col-sm-7 product">
+                    <div class="thumbnail">
+                        <a href="#">
+                            <img src="~/IMG/Products/@Html.DisplayFor(vms => vm.Image)" alt="Product">
+                        </a>
+                        <a href="/modal/content/" class="btn btn-info btn-block btn-sm" name="@Html.DisplayFor(vms => vm.Id)" data-toggle="modal" data-target="#myModal">Quick View</a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
 
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">@Html.DisplayFor(vms => vm.Name)</h4>
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">@Html.DisplayFor(vms => vm.Name)</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <a href="#"><img src="~/IMG/Products/@Html.DisplayFor(vms => vm.Image)" alt="Product" /></a>
+                                        <p>@Html.DisplayFor(vms => vm.Description)</p>
+                                        <h1>@Html.DisplayFor(vms => vm.Price)$</h1>
+                                        <p>@Html.DisplayFor(vms => vm.Category.Name)</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Buy</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <a href="#"><img src="~/IMG/Products/@Html.DisplayFor(vms=>vm.Image)" alt="Product" /></a>
-                                    <p>@Html.DisplayFor(vms => vm.Description)</p>
-                                    <h1>@Html.DisplayFor(vms => vm.Price)$</h1>
-                                    <p>@Html.DisplayFor(vms => vm.Category.Name)</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-info" data-dismiss="modal">Buy</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
+                                @*@Html.Partial("_ModalContent")*@
                             </div>
-                            @*@Html.Partial("_ModalContent")*@
                         </div>
-                    </div>
-                    <div class="caption">
-                        <h4>@Html.DisplayFor(vms => vm.Name)</h4>
-                        <h2>@Html.DisplayFor(vms => vm.Price)$</h2>
-                        <h4>@Html.DisplayFor(vms => vm.Category.Name)</h4>
-                        @*<p>
-                                <a href="#" class="btn btn-primary">
-                                    <i class="fa fa-user fa-fw"></i>
-                                    Add To Card
-                                </a>
-                            </p>*@
-                        @using (Html.BeginForm("AddToCart", "Cart"))
+                        <div class="caption">
+                            <h4>@Html.DisplayFor(vms => vm.Name)</h4>
+                            <h2>@Html.DisplayFor(vms => vm.Price)$</h2>
+                            <h4>@Html.DisplayFor(vms => vm.Category.Name)</h4>
+                            @*<p>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fa fa-user fa-fw"></i>
+                                        Add To Card
+                                    </a>
+                                </p>*@
+                            @using (Html.BeginForm("AddToCart", "Cart"))
                             {
                                 //<div class="pull-right">
-                            @Html.HiddenFor(vms => vm.Id, new { Name = "productId" })
-                            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                            <input type="submit" class="btn btn-primary" value="Add To Cart" />
+                                @Html.HiddenFor(vms => vm.Id, new { Name = "productId" })
+                                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                <input type="submit" class="btn btn-primary" value="Add To Cart" />
                                 //</div>
                             }
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             }
             @*asdsadsadsadsadsadsadsad<div class="col-md-4 col-xs-6">
                     <div class="box bg-color-1">
@@ -98,21 +105,21 @@
 
     <div class="col-md-3 col-sm-5 col-xs-12 pull-left">
         <aside>
-    <div class="panel panel-info courseSidebar">
-        <div class="panel-heading bg-color-1 border-color-1">
-            <h3 class="panel-title">Search</h3>
-        </div>
-        <div class="panel-body">
-            <div class="input-group">
-                @using (Html.BeginForm())
-                {
-                    @Html.TextBox("search", null, new { @class="form-control", id="searchProducts"})
-                    @*<input type="text" id="searchProducts" name="searchProducts" class="form-control" placeholder="Enter Your Search" aria-describedby="basic-addon2">*@
-                    <span class="input-group-addon" id="basic-addon2"><input class="btn btn-primary bg-color-1" type="submit" value="Search"></span>
-                }
+            <div class="panel panel-info courseSidebar">
+                <div class="panel-heading bg-color-1 border-color-1">
+                    <h3 class="panel-title">Search</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.TextBox("search", null, new { @class = "form-control", id = "searchProducts" })
+                            @*<input type="text" id="searchProducts" name="searchProducts" class="form-control" placeholder="Enter Your Search" aria-describedby="basic-addon2">*@
+                            <span class="input-group-addon" id="basic-addon2"><input class="btn btn-primary bg-color-1" type="submit" value="Search"></span>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
             <div class="panel panel-warning courseSidebar">
                 <div class="panel-heading bg-color-2 border-color-2">
                     <h3 class="panel-title">Filter By</h3>
@@ -165,15 +172,15 @@
 </div>
 
 @section Scripts{
-<script type="text/javascript">
-    $(function () {
-        $("#searchProducts").autocomplete({
-            source: '@Url.Action("GetProductsJson")',
-            minLength: 2
+    <script type="text/javascript">
+        $(function () {
+            $("#searchProducts").autocomplete({
+                source: '@Url.Action("GetProductsJson")',
+                minLength: 2
+            });
         });
-    });
-</script>
-    }
+    </script>
+}
 
 
 @*@model  OnlineStorePlatform.Models.ViewModels.Products.ProductListModel

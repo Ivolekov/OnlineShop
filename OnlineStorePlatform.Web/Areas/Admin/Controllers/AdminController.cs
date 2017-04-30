@@ -36,9 +36,29 @@
         [Route]
         public ActionResult Index(int? page)
         {
-            var vm = this.service.GetAdminPage(page);
-
+            AdminPageVm vm = this.service.GetAdminPage(page, null);
             return View(vm);
+
+            //var products = this.service.GetAdminPage();
+            //return Json(new { data = products }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [Route]
+        public ActionResult Index(int? page, string searchAdmin)
+        {
+            AdminPageVm vm = new AdminPageVm();
+            if (string.IsNullOrEmpty(searchAdmin))
+            {
+                vm = this.service.GetAdminPage(page, null);
+                return View(vm);
+            }
+            else
+            {
+                vm = this.service.GetAdminPage(page, searchAdmin);
+                return this.View(vm);
+            }
+
             //var products = this.service.GetAdminPage();
             //return Json(new { data = products }, JsonRequestBehavior.AllowGet);
         }
@@ -184,5 +204,12 @@
 
         #endregion
 
+
+        public JsonResult GetCategoriesJson(string term)
+        {
+            List<string> products = new List<string>();
+            products = this.service.GetGategoriesAsString(term);
+            return this.Json(products, JsonRequestBehavior.AllowGet);
+        }
     }
 }

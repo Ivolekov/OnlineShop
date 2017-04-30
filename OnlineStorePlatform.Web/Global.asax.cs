@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using OnlineStorePlatform.Data;
 using OnlineStorePlatform.Models.BindingModels;
+using OnlineStorePlatform.Models.BindingModels.Blog;
 using OnlineStorePlatform.Models.BindingModels.Cart;
 using OnlineStorePlatform.Models.EntityModels;
 using OnlineStorePlatform.Models.EntityModels.Cart;
@@ -65,6 +66,10 @@ namespace OnlineStorePlatform.Web
                 expresion.CreateMap<Article, ArticleViewModel>();
 
                 expresion.CreateMap<Order, OrderVm>();
+
+                expresion.CreateMap<ApplicationUser, ArticleAuthorViewModel>();
+
+                expresion.CreateMap<AddNewArticleBm, Article>();
             });
         }
     }

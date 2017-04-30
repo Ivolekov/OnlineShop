@@ -24,9 +24,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Blog", "Articles", "Blog")</li>
+                    <li>@Html.RouteLink("Products", new { controller = "Product", action = "HomeProducts", category = "all", page = 1 })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.RouteLink("Products",new { controller = "Product", action = "HomeProducts", category = "all", page = 1 })</li>
+
                     @Html.Action("Summary", "Cart")
                 </ul>
                 @Html.Partial("_LoginPartial")

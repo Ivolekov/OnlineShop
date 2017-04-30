@@ -4,9 +4,9 @@
     Layout = "~/Areas/Blog/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "All Articles";
 }
-
+<link href="~/Content/Site.css" rel="stylesheet" />
 <h2>Articles</h2>
-@if (User.IsInRole("blogAuthor"))
+@if (User.IsInRole("admin")||User.IsInRole("manager"))
 {
     @Html.Action("CreationVisualize")
 }
@@ -15,13 +15,14 @@
     @foreach (var vm in Model)
     {
         <article>
+            <img src="~/IMG/Articles/@Html.DisplayFor(vms=>vm.Image)" alt="article" class="img-article" />
             <h3>@Html.DisplayFor(vms => vm.Title)</h3>
-            <p>@Html.DisplayFor(vms => vm.Content)</p>
-            <br />
-            <hr />
-            <br />
             <span class="author">@Html.DisplayFor(vms => vm.Author.Name)</span>
             <span class="publish-date">@Html.DisplayFor(vms => vm.PublishDate)</span>
+            <p>@Html.DisplayFor(vms => vm.Content)</p>
+            <hr />
+            <br />
+           
         </article>
     }
 </section>

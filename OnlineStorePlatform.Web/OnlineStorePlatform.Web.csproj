@@ -200,8 +200,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstracts\IEmailContactProcessor.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Areas\Blog\Controllers\BlogController.cs" />
+    <Compile Include="Concrete\EmailContactProcessor.cs" />
     <Compile Include="Concrete\EmailOrderPrpocessor.cs" />
     <Compile Include="Abstracts\IOrderProcessor.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -315,6 +317,10 @@
     <Content Include="Areas\Blog\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Blog\Views\Blog\Articles.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\GetAllProducts.cshtml" />
+    <Content Include="Areas\Blog\Views\Blog\_AddBtnForArticle.cshtml" />
+    <Content Include="Areas\Blog\Views\Blog\Add.cshtml" />
+    <Content Include="Areas\Blog\Views\Blog\Edit.cshtml" />
+    <Content Include="Areas\Blog\Views\Blog\Delete.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -385,6 +391,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Blog\Models\" />
+    <Folder Include="IMG\Articles\" />
     <Folder Include="IMG\Categories\" />
     <Folder Include="IMG\Products\" />
   </ItemGroup>

@@ -71,3 +71,29 @@ form>.add-category{
 div>form>.edit-category{
     margin-top:40px;
 }
+
+.border-color-1{
+    border:2px solid #f0c24b;
+}
+.border-color-2{
+    border:2px solid #b5d56a;
+}
+.border-color-3{
+    border:2px solid #a597e7;
+}
+.border-color-4{
+    border:2px solid #ea77ad;
+}
+.border-color-5{
+    border:2px solid #c3dad7;
+}
+.border-color-6{
+    border:2px solid #a597e7;
+}
+.formBtnArea{
+    color:#ea7066;
+}
+.img-article {
+    width:800px;
+    height:600px;
+}

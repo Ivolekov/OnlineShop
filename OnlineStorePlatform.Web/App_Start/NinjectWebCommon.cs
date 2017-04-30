@@ -64,6 +64,7 @@ namespace OnlineStorePlatform.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>();
+            kernel.Bind<IEmailContactProcessor>().To<EmailContactProcessor>();
         }        
     }
 }

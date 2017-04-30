@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="BindingModels\AddNewCategoryBm.cs" />
     <Compile Include="BindingModels\AddNewProductBm.cs" />
+    <Compile Include="BindingModels\Blog\AddNewArticleBm.cs" />
     <Compile Include="BindingModels\Cart\CartBm.cs" />
     <Compile Include="BindingModels\Cart\CustomerBm.cs" />
     <Compile Include="BindingModels\DeleteCategoryBm.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="EntityModels\Cart\CartLine.cs" />
     <Compile Include="EntityModels\Cart\ShippingDetails.cs" />
     <Compile Include="EntityModels\Category.cs" />
+    <Compile Include="EntityModels\ContactFormDetails.cs" />
     <Compile Include="EntityModels\Customer.cs" />
     <Compile Include="EntityModels\Log.cs" />
     <Compile Include="EntityModels\Order.cs" />
