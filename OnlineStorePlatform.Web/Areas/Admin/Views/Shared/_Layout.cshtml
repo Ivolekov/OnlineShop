@@ -6,11 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/fontawesome")
-    @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-    @Styles.Render("~/Content/fontawesome")
-
-
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,9 +23,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Blog", "Articles", "Blog", new { area="blog"},null)</li>
+                    <li>@Html.RouteLink("Products", new { controller = "", action = "" }, new { Href = "/products/all/page1" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Products", "HomeProducts", "Product", new { area = "" }, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -44,6 +41,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

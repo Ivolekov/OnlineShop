@@ -1,32 +1,69 @@
 ﻿@using Microsoft.AspNet.Identity
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-        
-        @Html.AntiForgeryToken()
 
+        @Html.AntiForgeryToken()
         <ul class="nav navbar-nav navbar-right">
-            @if (User.IsInRole("manager"))
-            {
-            <li>
-                @Html.RouteLink("Manager", new { controller = "adminmanager", action = "index" },new { Href="/manager"})
+            @*@if (User.IsInRole("manager"))
+                {
+                    <li>
+                        @Html.RouteLink("Manager", new { controller = "adminmanager", action = "index" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Admin", "Index", "Admin")
+                    </li>
+                }
+                @if (User.IsInRole("admin"))
+                {
+                    <li>
+                        @Html.ActionLink("Admin", "Index", "Admin")
+                    </li>
+                }*@
+            @*<li>
+                    @Html.ActionLink("Hello " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>*@
+            <li class="dropdown">
+                @*<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    Tutorials*@
+                @Html.ActionLink("Hello " + User.Identity.GetUserName(), null, null, new { @class = "dropdown-toggle", data_toggle = "dropdown" })
+                @*</button>*@
+                <ul class="dropdown-menu">
+                    <li class="dropdown-header">Profile</li>
+                    @*<li>@Html.ActionLink("Manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>*@
+                    <li>@Html.RouteLink("Manage", new { controller = "", action = "" }, new { Href = "/Manage" })</li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    @if (User.IsInRole("manager"))
+                    {
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Manager Panel</li>
+                        <li>
+                            @Html.RouteLink("Assign Roles", new { controller = "adminmanager", action = "index" }, new { Href = "/manager/assign" })
+                        </li>
+                        <li>
+                            @Html.RouteLink("Orders", new { controller = "adminmanager", action = "orders" }, new { Href = "/manager/orders" })
+                        </li>
+                        <li>
+                            @Html.RouteLink("Logs", new { controller = "log", action = "All" }, new { Href = "/log/all" })
+                        </li>
+                        <li class="dropdown-header">Admin Panel</li>
+                        <li>
+                            @Html.ActionLink("Admin", "Index", "Admin", new { Href = "/admin" })
+                        </li>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li class="dropdown-header">Admin Panel</li>
+                        <li>
+                            @Html.ActionLink("Admin", "Index", "Admin")
+                        </li>
+                    }
+                </ul>
             </li>
-            <li>
-                @Html.ActionLink("Admin", "Index", "Admin")
-            </li>
-            }
-            @if (User.IsInRole("admin"))
-            {
-            <li>
-                @Html.ActionLink("Admin", "Index", "Admin")
-            </li>
-            }
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-            
+            @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
+
         </ul>
     }
 }

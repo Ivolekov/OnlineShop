@@ -22,7 +22,7 @@ namespace OnlineStorePlatform.Web.Controllers
             this.service = new AdminmanagerService();
         }
 
-        [Route]
+        [Route("assign")]
         [HttpGet]
         public ActionResult Index()
         {
@@ -36,6 +36,7 @@ namespace OnlineStorePlatform.Web.Controllers
         }
 
         [HttpPost]
+        //[Route("assign")]
         public ActionResult Assign(RoleVm rvm)
         {
             this.service.AssignRole(rvm);
@@ -43,6 +44,7 @@ namespace OnlineStorePlatform.Web.Controllers
         }
 
         [HttpGet]
+        [Route("orders")]
         public ActionResult Orders()
         {
             IEnumerable<OrderVm> vms = this.service.GetAllOrders();

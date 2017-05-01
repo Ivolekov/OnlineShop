@@ -321,6 +321,7 @@
     <Content Include="Areas\Blog\Views\Blog\Add.cshtml" />
     <Content Include="Areas\Blog\Views\Blog\Edit.cshtml" />
     <Content Include="Areas\Blog\Views\Blog\Delete.cshtml" />
+    <Content Include="Areas\Blog\Views\Shared\_LoginPartial.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />

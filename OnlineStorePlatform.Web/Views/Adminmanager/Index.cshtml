@@ -10,6 +10,7 @@
     @Html.DropDownList("Role", ViewBag.Role as SelectList)
 
     @*Make it Search Fielt*@
+    @Html.TextBox("searchUser", null, new { @class = "form-control", id = "searchUser" })
     @Html.DropDownList("User", ViewBag.User as SelectList)
 
     <input type="submit" value="Assign" />
