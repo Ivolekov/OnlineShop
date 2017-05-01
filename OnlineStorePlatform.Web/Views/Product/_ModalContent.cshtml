@@ -1,18 +1,18 @@
-﻿@model OnlineStorePlatform.Models.ViewModels.Products.ProductListVm
+﻿@model OnlineStorePlatform.Models.ViewModels.Products.ProductModalVm
 
+<!-- Modal content-->
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">@Model</h4>
+        <h4 class="modal-title">@Model.Name</h4>
     </div>
     <div class="modal-body">
-        <a href="#"><img src="@Model.Products" alt="Product" /></a>
-        <p></p>
-        @*<h1>@Html.DisplayFor(vms => vm.Price)$</h1>
-        <p>@Html.DisplayFor(vms => vm.Category.Name)</p>*@
+        <a href="#"><img src="~/IMG/Products/@Model.Image" alt="Product" /></a>
+        <p>@Model.Description</p>
+        <h1>@Model.Price$</h1>
+        <p>@Model.CategoryName</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal">Buy</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>
 </div>

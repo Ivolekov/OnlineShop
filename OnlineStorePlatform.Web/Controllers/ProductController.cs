@@ -92,5 +92,12 @@
             var vm = this.serviceForCategories.GetAllCategories();
             return this.PartialView("_GetAllCategories", vm);
         }
+
+        [Route("quickview")]
+        public ActionResult QuickView(int id)
+        {
+            ProductModalVm vm = this.service.GetProductForModalView(id);
+            return this.PartialView("_ModalContent", vm);
+        }
     }
 }

@@ -92,6 +92,14 @@
             return this.Context.Products.Where(product => product.Name.StartsWith(term)).Select(p => p.Name).ToList();
         }
 
+        public ProductModalVm GetProductForModalView(int id)
+        {
+            Product product = this.Context.Products.Find(id);
+            ProductModalVm vm = Mapper.Map<Product, ProductModalVm>(product);
+            return vm;
+
+        }
+
         //public ProductListVm GetData(string searchText)
         //{
 

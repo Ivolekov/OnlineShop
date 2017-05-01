@@ -18,31 +18,21 @@
                     <div class="col-md-4 col-sm-7 product">
                         <div class="thumbnail">
                             <a href="#">
-                                <img src="@Html.DisplayFor(vms => vm.Image)" alt="Product">
+                                <img src="~/IMG/Products/@Html.DisplayFor(vms => vm.Image)" alt="Product">
                             </a>
-                            <a href="/modal/content/" class="btn btn-info btn-block btn-sm" data-toggle="modal" data-target="#myModal">Quick View</a>
+                            @Html.ActionLink("Quick View", "QuickView",
+                                new { id = @Html.DisplayTextFor(vms => vm.Id) },
+                                new
+                                {
+                                    @class = "btn btn-info btn-block btn-sm",
+                                    data_toggle = "modal",
+                                    data_target = "#myModal",
+                                    onclick = "clicked(" + @Html.DisplayTextFor(vms => vm.Id) + ")"
+                                })
                             <!-- Modal -->
                             <div class="modal fade" id="myModal" role="dialog">
-                                <div class="modal-dialog modal-lg">
-
+                                <div class="modal-dialog modal-lg" id="modalContent">
                                     <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">@Html.DisplayFor(vms => vm.Name)</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <a href="#"><img src="@Html.DisplayFor(vms => vm.Image)" alt="Product" /></a>
-                                            <p>@Html.DisplayFor(vms => vm.Description)</p>
-                                            <h1>@Html.DisplayFor(vms => vm.Price)$</h1>
-                                            <p>@Html.DisplayFor(vms => vm.Category.Name)</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-info" data-dismiss="modal">Buy</button>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                             <div class="caption">
@@ -121,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-warning courseSidebar">
+            @*<div class="panel panel-warning courseSidebar">
                 <div class="panel-heading bg-color-2 border-color-2">
                     <h3 class="panel-title">Filter By</h3>
                 </div>
@@ -156,7 +146,7 @@
                         <span class="priceLabel">Price: <strong>$12 - $30</strong></span>
                     </div>
                 </div>
-            </div>
+            </div>*@
             <div class="panel panel-success courseSidebar">
                 <div class="panel-heading bg-color-5 border-color-5">
                     <h3 class="panel-title">Categories</h3>
@@ -179,6 +169,11 @@
                 minLength: 2
             });
         });
+    </script>
+    <script type="text/javascript">
+        function clicked(id) {
+            $("#modalContent").load("/Products/QuickView?id=" + id)
+        }
     </script>
 }
 

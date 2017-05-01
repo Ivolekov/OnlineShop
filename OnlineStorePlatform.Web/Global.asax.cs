@@ -70,6 +70,8 @@ namespace OnlineStorePlatform.Web
                 expresion.CreateMap<ApplicationUser, ArticleAuthorViewModel>();
 
                 expresion.CreateMap<AddNewArticleBm, Article>();
+
+                expresion.CreateMap<Product, ProductModalVm>();
             });
         }
     }

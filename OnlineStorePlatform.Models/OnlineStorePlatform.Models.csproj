@@ -161,6 +161,7 @@
     <Compile Include="ViewModels\Products\EditProductVm.cs" />
     <Compile Include="ViewModels\Products\GetAllProductsVm.cs" />
     <Compile Include="ViewModels\Products\ProductListVm.cs" />
+    <Compile Include="ViewModels\Products\ProductModalVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\PagedList.css" />
