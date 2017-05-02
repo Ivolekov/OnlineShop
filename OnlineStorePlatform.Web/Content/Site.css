@@ -130,10 +130,59 @@ div>form>.edit-category{
 .formBtnArea{
     color:#ea7066;
 }
+.header-container {
+    background-color:bisque;
+    border:none;
+}
+.bg-color-1{
+     background-color: #f0c24b;
+     color:#f0c24b;
+     font-size:5px;
+}
+.bg-color-2{
+     background-color: #ea7066;
+     color:#ea7066;
+     font-size:5px;
+}
+.bg-color-3{
+     background-color: #b5d56a;
+     color:#b5d56a;
+     font-size:5px;
+}
+.bg-color-4{
+     background-color: #a597e7;
+     color:#a597e7;
+     font-size:5px;
+}
+.bg-color-5{
+     background-color: #ea7066;
+     color:#ea7066;
+     font-size:5px;
+}
+.bg-color-6{
+     background-color: #c3dad7;
+     color:#c3dad7;
+     font-size:5px;
+}
 .img-article {
     width:800px;
     height:600px;
+    border-radius:200px;
 }
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    background-color:lightyellow;
+}
+
+.navbar-right .dropdown-menu {
+    left:0;
+}
+.bg-dropdown{
+    background-color:lightyellow;
+}
+
+
 
 
 

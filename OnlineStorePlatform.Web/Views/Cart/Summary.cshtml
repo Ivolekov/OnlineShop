@@ -1,16 +1,16 @@
 ﻿@model OnlineStorePlatform.Models.EntityModels.Cart.Cart
 
 <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-shopping-basket shop-cart" aria-hidden="true"></i>
-        <span class="badge">@Model.Lines.Sum(p => p.Quantity)</span>
-        @Model.ComputeTotalValue().ToString("c")
+    <a class="dropdown-toggle btn" data-toggle="dropdown">
+            <i class="fa fa-shopping-basket shop-cart" aria-hidden="true"></i>
+            <span class="badge">@Model.Lines.Sum(p => p.Quantity)</span>
+            @Model.ComputeTotalValue().ToString("c")
     </a>
     <ul class="dropdown-menu">
         <li>
             @Html.ActionLink("Checkout", "Index", "Cart",
             new { returnUrl = Request.Url.PathAndQuery },
-            new { @class = "btn btn-default navbar-btn" })
+            new { @class = "btn btn-warning navbar-btn" })
         </li>
     </ul>
 </li>

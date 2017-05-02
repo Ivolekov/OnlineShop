@@ -30,7 +30,7 @@
                     Tutorials*@
                 @Html.ActionLink("Hello " + User.Identity.GetUserName(), null, null, new { @class = "dropdown-toggle", data_toggle = "dropdown" })
                 @*</button>*@
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu bg-dropdown">
                     <li class="dropdown-header">Profile</li>
                     @*<li>@Html.ActionLink("Manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>*@
                     <li>@Html.RouteLink("Manage", new { controller = "", action = "" }, new { Href = "/Manage" })</li>
