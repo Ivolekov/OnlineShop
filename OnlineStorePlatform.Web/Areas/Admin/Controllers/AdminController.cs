@@ -20,7 +20,7 @@
         {
             this.service = new AdminService();
 
-            //HomeSevice is use for AddProduct. Need to display all categories in add view
+            //HomeSevice is use for AddProduct. Need to display all categories in edit view
             this.serviceForCategories = new HomeService();
         }
 
@@ -70,6 +70,7 @@
                 this.service.AddNewProduct(bind , userId);
                 this.service.ChangeProductBindIdForImageFileName(bind);
                 bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
+                TempData["message"] = string.Format($"Product \"{bind.Name}\" has been saved");
                 return this.RedirectToAction("Index");
             }
             return this.View();
@@ -92,6 +93,7 @@
             var userId = User.Identity.GetUserId();
             this.service.EditProduct(bind, id, userId);
             bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
+            TempData["edit-message"] = string.Format($"Product \"{bind.Name}\" has been edited");
             return this.RedirectToAction("Index");
         }
         #endregion
@@ -111,6 +113,7 @@
         {
             var userId = User.Identity.GetUserId();
             this.service.DeleteProduct(bind, userId);
+            TempData["delete-message"] = string.Format($"Product has been removed");//$"Product with id: \"{bind}\" has been deleted");
             return this.RedirectToAction("Index");
         }
         #endregion
@@ -138,6 +141,7 @@
                 this.service.AddNewCategory(bind, userId);
                 this.service.ChangeCategoryBindIdForImageFileName(bind);
                 bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Categories/") + bind.Name + bind.Id + ".png");
+                TempData["message"] = string.Format($" Category \"{bind.Name}\" has been saved");
                 return this.RedirectToAction("Index");
             }
             return this.View();
@@ -161,6 +165,7 @@
             var userId = User.Identity.GetUserId();
             this.service.EditCategory(bind, id, userId);
             bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Categories/") + bind.Name + bind.Id + ".png");
+            TempData["edit-message"] = string.Format($" Category \"{bind.Name}\" has been edited");
             return this.RedirectToAction("Index");
         }
         #endregion
@@ -180,6 +185,7 @@
         {
             var userId = User.Identity.GetUserId();
             this.service.DeleteCategory(bind, userId);
+            TempData["delete-message"] = string.Format($" Category \"{bind.Name}\" has been deleted");
             return this.RedirectToAction("Index");
         }
         #endregion

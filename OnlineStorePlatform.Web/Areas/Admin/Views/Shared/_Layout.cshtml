@@ -32,6 +32,30 @@
         </div>
     </div>
     <div class="container body-content">
+        @if (TempData["message"] != null)
+        {
+
+            <div class="alert alert-info alert-dismissable" id="success-alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"><strong>&times;</strong></a>
+                <strong>@TempData["message"]</strong>
+            </div>
+        }
+        @if (TempData["delete-message"] != null)
+        {
+
+            <div class="alert alert-danger alert-dismissable" id="success-alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"><strong>&times;</strong></a>
+                <strong>@TempData["delete-message"]</strong>
+            </div>
+        }
+        @if (TempData["edit-message"] != null)
+        {
+
+            <div class="alert alert-warning alert-dismissable" id="success-alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"><strong>&times;</strong></a>
+                <strong>@TempData["edit-message"]</strong>
+            </div>
+        }
         @RenderBody()
         <hr>
         <footer>
@@ -45,5 +69,10 @@
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     @RenderSection("scripts", required: false)
+    <script>    
+        $("#success-alert").fadeTo(7000, 500).slideUp(500, function () {
+        $("#success-alert").slideUp(500);
+    });
+    </script>
 </body>
 </html>
