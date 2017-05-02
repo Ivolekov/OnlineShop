@@ -200,12 +200,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstracts\IEmailContactProcessor.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Areas\Blog\Controllers\BlogController.cs" />
-    <Compile Include="Concrete\EmailContactProcessor.cs" />
-    <Compile Include="Concrete\EmailOrderPrpocessor.cs" />
-    <Compile Include="Abstracts\IOrderProcessor.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -214,7 +210,6 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Blog\BlogAreaRegistration.cs" />
-    <Compile Include="Concrete\EmailSettings.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminmanagerController.cs" />
     <Compile Include="Controllers\CartController.cs" />

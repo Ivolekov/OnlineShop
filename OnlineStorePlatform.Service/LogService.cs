@@ -1,14 +1,12 @@
 ﻿namespace OnlineStorePlatform.Service
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Models.ViewModels.Log;
     using Models.EntityModels;
+    using Interfaces;
 
-    public class LogService : Service
+    public class LogService : Service, ILogService
     {
         public AllLogsPageVm GetAllLogsPageVm(string email, int? page)
         {

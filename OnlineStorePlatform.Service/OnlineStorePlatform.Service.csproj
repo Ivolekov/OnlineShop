@@ -103,7 +103,17 @@
     <Compile Include="AdminService.cs" />
     <Compile Include="BlogService.cs" />
     <Compile Include="CartService.cs" />
+    <Compile Include="EmailSettings.cs" />
     <Compile Include="HomeService.cs" />
+    <Compile Include="Interfaces\IAccountService.cs" />
+    <Compile Include="Interfaces\IAdminmanagerService.cs" />
+    <Compile Include="Interfaces\IAdminService.cs" />
+    <Compile Include="Interfaces\IBlogService.cs" />
+    <Compile Include="Interfaces\ICartService.cs" />
+    <Compile Include="Interfaces\IHomeService.cs" />
+    <Compile Include="Interfaces\ILogService.cs" />
+    <Compile Include="Interfaces\INavService.cs" />
+    <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="LogService.cs" />
     <Compile Include="NavService.cs" />
     <Compile Include="ProductService.cs" />
@@ -124,9 +134,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\PagedList.css" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

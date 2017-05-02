@@ -1,26 +1,18 @@
 ﻿namespace OnlineStorePlatform.Web.Controllers
 {
-    using Abstracts;
     using Models.EntityModels;
     using Models.ViewModels.Category;
-    using Models.ViewModels.Products;
     using Service;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
-
-    //[RoutePrefix("home")]
+    
     [AllowAnonymous]
     public class HomeController : Controller
     {
         private HomeService service;
-        private IEmailContactProcessor emailContactProcessor;
-        public HomeController(IEmailContactProcessor contactProcessor)
+        public HomeController()
         {
             this.service = new HomeService();
-            this.emailContactProcessor = contactProcessor;
         }
         [HttpGet]
         [Route]
@@ -38,12 +30,12 @@
         }
 
         [Route("contact")]
-        public ActionResult Contact(ContactFormDetails contactForm)
+        public ActionResult Contact(ContactFormDetails contactFormDetails)
         {
             ViewBag.Message = "Your contact page.";
             if (this.ModelState.IsValid)
             {
-                emailContactProcessor.ProcessContactForm(contactForm);
+                this.service.SendEmailFromContactForm(contactFormDetails);
             }
             return View();
         }

@@ -1,31 +1,19 @@
 ﻿using Microsoft.AspNet.Identity;
-using OnlineStorePlatform.Data;
-using OnlineStorePlatform.Models.BindingModels.Cart;
 using OnlineStorePlatform.Models.EntityModels;
 using OnlineStorePlatform.Models.EntityModels.Cart;
 using OnlineStorePlatform.Models.ViewModels.Cart;
 using OnlineStorePlatform.Service;
-using OnlineStorePlatform.Web.Abstracts;
-using OnlineStorePlatform.Web.Concrete;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace OnlineStorePlatform.Web.Controllers
 {
-    // [Authorize]
     public class CartController : Controller
     {
         private CartService service;
-        //TODO: USE NINJET orderProcessor do not work
-        //TODO: Abstract and Concrate folders must be services
-        private IOrderProcessor orderProcessor;
 
-        public CartController(IOrderProcessor processor)
+        public CartController()
         {
-            this.orderProcessor = processor;
             this.service = new CartService();
         }
 
@@ -48,7 +36,7 @@ namespace OnlineStorePlatform.Web.Controllers
                 Customer customerEntity = this.service.AddProductsToCustomer(cart.Lines, user);
                 this.service.AddOrderToDatabase(customerEntity);
                 this.service.AddDataToShippingDetails(shippingDetails, user);
-                orderProcessor.ProcessOrder(cart, shippingDetails);
+                this.service.ProcessOrder(cart, shippingDetails);
                 cart.Clear();
                 return View("Completed");
 
@@ -58,6 +46,7 @@ namespace OnlineStorePlatform.Web.Controllers
                 return View(shippingDetails);
             }
         }
+
         public PartialViewResult Summary(Cart cart)
         {
             return this.PartialView(cart);

@@ -10,7 +10,7 @@
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please enter a your email address")]
+        //[Required(ErrorMessage = "Please enter a your email address")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please enter the first address line")]

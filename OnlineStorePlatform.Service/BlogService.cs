@@ -3,14 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Models.ViewModels.Blog;
     using Models.EntityModels;
     using AutoMapper;
     using Models.BindingModels.Blog;
+    using Interfaces;
 
-    public class BlogService : Service
+    public class BlogService : Service, IBlogService
     {
         public IEnumerable<ArticleViewModel> GetAllArticles()
         {
@@ -34,5 +33,7 @@
             var article = this.Context.Articles.OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
             bind.Id = article.Id;
         }
+
+        //TODO: Edit and Delete moethods
     }
 }

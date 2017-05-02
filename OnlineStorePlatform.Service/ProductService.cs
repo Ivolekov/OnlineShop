@@ -1,20 +1,16 @@
 ﻿namespace OnlineStorePlatform.Service
 {
-    using OnlineStorePlatform.Service;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Models.ViewModels.Products;
     using Models.EntityModels;
     using AutoMapper;
     using Models;
+    using Interfaces;
 
-    public class ProductService : Service
+    public class ProductService : Service, IProductService
     {
         public const int PageSize = 6;
-        //public IEnumerable<GetAllProductsVm> GatAllProducts(int page)
         public ProductListVm GatProductsByCategory(string category, int page)
         {
             ProductListVm model = new ProductListVm
@@ -99,26 +95,5 @@
             return vm;
 
         }
-
-        //public ProductListVm GetData(string searchText)
-        //{
-
-        //    IEnumerable<Product> products = this.Context.Products.Where(p => p.Name.Contains(searchText));
-        //    ProductListVm model = new ProductListVm
-        //    {
-        //        Products = this.Context.Products
-        //      .OrderBy(pro => pro.Id)
-        //      //.Skip((page - 1) * PageSize)
-        //      .Take(PageSize),
-
-        //        PagingInfo = new PagingInfo
-        //        {
-        //           // CurrentPage = page,
-        //            ItemsPerPage = PageSize,
-        //            TotalItems = this.Context.Products.Count()
-        //        }
-        //    };
-        //    return model;
-        //}
     }
 }

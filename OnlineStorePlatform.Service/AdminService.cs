@@ -8,13 +8,13 @@
     using Models.ViewModels.Category;
     using AutoMapper;
     using Models.ViewModels.Products;
-    using Models.BindingModels;
     using Models.Enums;
     using PagedList;
     using Models.BindingModels.Product;
     using Models.BindingModels.Category;
+    using Interfaces;
 
-    public class AdminService : Service
+    public class AdminService : Service, IAdminService
     {
         public AdminPageVm GetAdminPage(int? page, string search)
         {

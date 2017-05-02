@@ -3,15 +3,22 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Models.EntityModels;
     using Models.EntityModels.Cart;
-    using Models.BindingModels.Cart;
-    using Data;
+    using Interfaces;
+    using System.Net.Mail;
+    using System.Net;
+    using System.Text;
 
-    public class CartService : Service
+    public class CartService : Service, ICartService
     {
+        private EmailSettings emailSettings;
+
+        public CartService()
+        {
+            this.emailSettings = new EmailSettings();
+        }
+
         public Product GetProductById(int productId)
         {
            return this.Context.Products.FirstOrDefault(p => p.Id == productId);
@@ -50,6 +57,59 @@
             var order = this.Context.Orders.OrderByDescending(ord => ord.Id).FirstOrDefault();
             shippingDetails.OrderId = order.Id;
             shippingDetails.Email = currentUser.Email;
+        }
+
+        public void ProcessOrder(Cart cart, ShippingDetails shippingInfo)
+        {
+            using (var smtpClient = new SmtpClient())
+            {
+                smtpClient.EnableSsl = emailSettings.UseSsl;
+                smtpClient.Host = emailSettings.ServerName;
+                smtpClient.Port = emailSettings.ServerPort;
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials
+                    = new NetworkCredential(emailSettings.Username,
+                        emailSettings.Password);
+
+
+                StringBuilder body = new StringBuilder()
+                    .AppendLine("A new order has been submitted with ID:" + shippingInfo.OrderId.ToString())
+                    .AppendLine("---")
+                    .AppendLine("Items:");
+                foreach (var line in cart.Lines)
+                {
+                    var subtotal = line.Product.Price * line.Quantity;
+                    body.AppendFormat("{0} x {1} (subtotal: {2:c})\n",
+                        line.Quantity,
+                        line.Product.Name,
+                        subtotal);
+                }
+                body.AppendFormat("Total order value: {0:c}",
+                    cart.ComputeTotalValue())
+                    .AppendLine()
+                    .Append("Order Id ")
+                    .AppendLine(shippingInfo.OrderId.ToString())
+                    .AppendLine("---")
+                    .AppendLine("Ship to:")
+                    .AppendLine(shippingInfo.Name)
+                    .AppendLine(shippingInfo.Email)
+                    .AppendLine(shippingInfo.Line1)
+                    .AppendLine(shippingInfo.Line2 ?? "")
+                    .AppendLine(shippingInfo.Line3 ?? "")
+                    .AppendLine(shippingInfo.City)
+                    .AppendLine(shippingInfo.State ?? "")
+                    .AppendLine(shippingInfo.Country)
+                    .AppendLine(shippingInfo.Zip)
+                    .AppendLine("---")
+                    .AppendFormat("Gift wrap: {0}",
+                        shippingInfo.GiftWrap ? "Yes" : "No");
+                MailMessage mailMessage = new MailMessage(new MailAddress(emailSettings.MailFromAddress).Address,
+                    new MailAddress(emailSettings.MailToAddress).Address,
+                    "New order with ID: " + shippingInfo.OrderId.ToString() + " submitted!",
+                    body.ToString());
+
+                smtpClient.Send(mailMessage);
+            }
         }
     }
 }

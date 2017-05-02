@@ -4,30 +4,16 @@
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models.EntityModels;
     using Models.ViewModels.Account;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Models.ViewModels.Order;
     using AutoMapper;
     using PagedList;
-    using PagedList.Mvc;
+    using Interfaces;
 
-    public class AdminmanagerService : Service
+    public class AdminmanagerService : Service, IAdminmanagerService
     {
-        //public IEnumerable<SelectListItem> GetAllUsers()
-        //{
-            
-        //    var user = this.Context.Users.ToList().Select(u => new SelectListItem()
-        //    {
-        //        Value = u.Id,
-        //        Text = u.Email
-        //    });
-        //    return user;
-        //}
-
         public IEnumerable<SelectListItem> GetAllRoles()
         {
             var roles =  this.Context.Roles.ToList().Select(r=> new SelectListItem()
@@ -40,9 +26,8 @@
 
         public void AssignRole(RoleVm rvm, string searchUser)
         {
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.Context));//this.Context
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.Context));
             ApplicationUser user = userManager.Users.Where(u=>u.Email.StartsWith(searchUser)).FirstOrDefault();
-            //var currentRole = this.Context.Roles.FirstOrDefault(r=>r.Name == rvm.Role);
             var customerRole = this.Context.Roles.FirstOrDefault(r => r.Name == "customer");
             rvm.User = user.Id;
             var roles = user.Roles.ToArray();
@@ -60,7 +45,6 @@
             this.Context.SaveChanges();
             var ruser = userManager.Users.Where(u => u.Email.StartsWith(searchUser)).FirstOrDefault();
             user = userManager.FindById(rvm.User);
-            //IdentityRole role = this.Context.Roles.FirstOrDefault(r => r.Name == rvm.Role);   
            
             userManager.AddToRole(rvm.User, rvm.Role);
         }
