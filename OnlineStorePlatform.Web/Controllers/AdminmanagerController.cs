@@ -26,29 +26,51 @@ namespace OnlineStorePlatform.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var users = this.service.GetAllUsers();
+            //var users = this.service.GetAllUsers();
 
             var roles = this.service.GetAllRoles();
 
-            ViewBag.User = users;
+            //ViewBag.User = users;
             ViewBag.Role = roles;
             return this.View(new RoleVm());
         }
 
         [HttpPost]
         //[Route("assign")]
-        public ActionResult Assign(RoleVm rvm)
+        public ActionResult Assign(RoleVm rvm, string searchUser)
         {
-            this.service.AssignRole(rvm);
-            return Redirect("Roles");
+            if (string.IsNullOrEmpty(searchUser))
+            {
+                return this.View("UserCantBeEmpty");
+               // this.service.AssignRole(rvm, searchUser = null);
+            }
+            else
+            {
+                this.service.AssignRole(rvm, searchUser);
+            }
+            return this.RedirectToAction("Index");
         }
 
         [HttpGet]
         [Route("orders")]
-        public ActionResult Orders()
+        public ActionResult Orders(int? page)
         {
-            IEnumerable<OrderVm> vms = this.service.GetAllOrders();
+            IEnumerable<OrderVm> vms = this.service.GetAllOrders(page);
             return this.View(vms);
+        }
+        //[HttpPost]
+        [Route("sentorders")]
+        public ActionResult SentOrders(int? id)
+        {
+            this.service.SendDeliver(id);
+            return this.RedirectToAction("Orders");
+        }
+
+        public JsonResult GetUserEmailJson(string term)
+        {
+            List<string> usersEmail = new List<string>();
+            usersEmail = this.service.GetUserEmailAsString(term);
+            return this.Json(usersEmail, JsonRequestBehavior.AllowGet);
         }
     }
 }

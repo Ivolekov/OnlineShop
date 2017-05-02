@@ -1,18 +1,30 @@
 ﻿@model OnlineStorePlatform.Models.ViewModels.Account.RoleVm
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Assign";
 }
 
-<h2>Assign</h2>
+<h2>Assign Role To User</h2>
 
 @using (Html.BeginForm("Assign", "Adminmanager"))
 {
-    @Html.DropDownList("Role", ViewBag.Role as SelectList)
-
-    @*Make it Search Fielt*@
-    @Html.TextBox("searchUser", null, new { @class = "form-control", id = "searchUser" })
-    @Html.DropDownList("User", ViewBag.User as SelectList)
-
-    <input type="submit" value="Assign" />
+    <div class="form-group">
+        @Html.Label("searchUserEmail", "Search User Email:")
+        @Html.TextBox("searchUser", null, new { @class = "form-control", id = "searchUserEmail", name = "User" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Role", "Role:")
+        @Html.DropDownList("Role", ViewBag.Role as SelectList, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Assign" class="btn btn-info" />
+    </div>
 }
-<hr />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#searchUserEmail").autocomplete({
+            source: '@Url.Action("GetUserEmailJson")',
+            minLength: 2
+        });
+    });
+</script>
