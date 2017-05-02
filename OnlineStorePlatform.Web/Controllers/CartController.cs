@@ -2,7 +2,7 @@
 using OnlineStorePlatform.Models.EntityModels;
 using OnlineStorePlatform.Models.EntityModels.Cart;
 using OnlineStorePlatform.Models.ViewModels.Cart;
-using OnlineStorePlatform.Service;
+using OnlineStorePlatform.Service.Interfaces;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,11 +10,11 @@ namespace OnlineStorePlatform.Web.Controllers
 {
     public class CartController : Controller
     {
-        private CartService service;
+        private ICartService service;
 
-        public CartController()
+        public CartController(ICartService service)
         {
-            this.service = new CartService();
+            this.service = service;
         }
 
         public ViewResult Index(Cart cart, string returnUrl)

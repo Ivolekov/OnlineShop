@@ -8,6 +8,8 @@ namespace OnlineStorePlatform.Web.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
+    using Service.Interfaces;
+    using Service;
 
     public static class NinjectWebCommon 
     {
@@ -59,8 +61,15 @@ namespace OnlineStorePlatform.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>();
-            //kernel.Bind<IEmailContactProcessor>().To<EmailContactProcessor>();
+            kernel.Bind<IAccountService>().To<AccountService>();
+            kernel.Bind<IAdminmanagerService>().To<AdminmanagerService>();
+            kernel.Bind<IAdminService>().To<AdminService>();
+            kernel.Bind<IBlogService>().To<BlogService>();
+            kernel.Bind<ICartService>().To<CartService>();
+            kernel.Bind<IHomeService>().To<HomeService>();
+            kernel.Bind<ILogService>().To<LogService>();
+            kernel.Bind<INavService>().To<NavService>();
+            kernel.Bind<IProductService>().To<ProductService>();
         }        
     }
 }

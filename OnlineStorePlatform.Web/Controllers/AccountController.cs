@@ -1,9 +1,6 @@
 ﻿namespace OnlineStorePlatform.Web.Controllers
 {
-    using System;
-    using System.Globalization;
     using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
@@ -12,19 +9,18 @@
     using Microsoft.Owin.Security;
     using OnlineStorePlatform.Models.ViewModels.Account;
     using OnlineStorePlatform.Models.EntityModels;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Service;
+    using Service.Interfaces;
 
     [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private AccountService service;
+        private IAccountService service;
 
-        public AccountController()
+        public AccountController(IAccountService service)
         {
-            this.service = new AccountService();
+            this.service = service;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)

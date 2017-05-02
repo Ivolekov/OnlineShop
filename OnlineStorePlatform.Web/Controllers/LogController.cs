@@ -1,9 +1,5 @@
 ﻿using OnlineStorePlatform.Models.ViewModels.Log;
-using OnlineStorePlatform.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using OnlineStorePlatform.Service.Interfaces;
 using System.Web.Mvc;
 
 namespace OnlineStorePlatform.Web.Controllers
@@ -11,11 +7,11 @@ namespace OnlineStorePlatform.Web.Controllers
     //TODO: Authorize, pagenation not working, logs for products, extent functionality
     public class LogController : Controller
     {
-        private LogService service;
+        private ILogService service;
 
-        public LogController()
+        public LogController(ILogService service)
         {
-            this.service = new LogService();
+            this.service = service;
         }
 
         [HttpGet]

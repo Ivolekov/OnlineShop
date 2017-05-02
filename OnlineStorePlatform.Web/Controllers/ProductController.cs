@@ -1,24 +1,20 @@
 ﻿namespace OnlineStorePlatform.Web.Controllers
 {
     using Models.ViewModels.Products;
-    using Service;
-    using System;
+    using Service.Interfaces;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Web.Mvc;
 
     [RoutePrefix("products")]
     [AllowAnonymous]
     public class ProductController : Controller
     {
-        private ProductService service;
-        private HomeService serviceForCategories;
-        public ProductController()
+        private IProductService service;
+        private IHomeService serviceForCategories;
+        public ProductController(IProductService service, IHomeService serviceForCategories)
         {
-            this.service = new ProductService();
-            this.serviceForCategories = new HomeService();
+            this.service = service;
+            this.serviceForCategories = serviceForCategories;
         }
 
         [HttpGet]

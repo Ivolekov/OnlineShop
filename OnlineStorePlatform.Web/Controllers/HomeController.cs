@@ -2,17 +2,17 @@
 {
     using Models.EntityModels;
     using Models.ViewModels.Category;
-    using Service;
+    using Service.Interfaces;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    
+
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        private HomeService service;
-        public HomeController()
+        private IHomeService service;
+        public HomeController(IHomeService service)
         {
-            this.service = new HomeService();
+            this.service = service;
         }
         [HttpGet]
         [Route]
