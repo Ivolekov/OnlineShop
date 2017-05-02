@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Models.ViewModels.Admin;
     using Models.EntityModels;
     using Models.ViewModels.Category;
@@ -12,16 +10,11 @@
     using Models.ViewModels.Products;
     using Models.BindingModels;
     using Models.Enums;
-
-    using System.Web.Helpers;
-    using System.Web.Mvc;
-    using System.Web;
     using PagedList;
 
     public class AdminService : Service
     {
         public AdminPageVm GetAdminPage(int? page, string search)
-        //public ICollection<Product> GetAdminPage()
         {
 
             AdminPageVm vm = new AdminPageVm();
@@ -30,13 +23,10 @@
 
             if (string.IsNullOrEmpty(search))
             {
-                //categories = this.Context.Categories;
                 products = this.Context.Products;
-
             }
             else
             {
-               // categories = this.Context.Categories.Where(category => category.Name.StartsWith(search));
                 products = this.Context.Products.Where(product => product.Name.StartsWith(search));
             }
 
@@ -45,15 +35,13 @@
 
             vm.Categories = categoriesVms.ToPagedList(page ?? 1, 3);
             vm.Products = productsVms.ToPagedList(page ?? 1, 3);
-            //var products = this.Context.Products.OrderBy(p => p.Name).ToList();
-            //return products;
             return vm;
 
 
         }
 
         #region ProductService
-        public void AddNewProduct(AddNewProductBm bind)
+        public void AddNewProduct(AddNewProductBm bind, string userId)
         {
             //Product model = Mapper.Map<AddNewProductBm, Product>(bind);
             //this.Context.Products.Add(model);
@@ -68,18 +56,8 @@
             };
             this.Context.Products.Add(product);
             this.Context.SaveChanges();
+            this.AddLog(userId, OperationLog.Add, "Product");
         }
-
-        //Test datatable
-        public IEnumerable<GetAllProductsVm> GetAllProducts()
-        {
-            IEnumerable<Product> products = this.Context.Products.OrderBy(p => p.Name).ToList();
-            IEnumerable<GetAllProductsVm> vms = Mapper.Instance.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(products);
-
-            return vms;
-        }
-
-        //End test 
 
         public EditProductVm GetEditProduct(int id)
         {
@@ -88,15 +66,16 @@
             return vm;
         }
 
-        public void EditProduct(EditProductBm bind, int id)
+        public void EditProduct(EditProductBm bind, int id, string userId)
         {
             Product model = this.Context.Products.Find(bind.Id);
-           // model.Image = bind.Image;
+            // model.Image = bind.Image;
             model.Name = bind.Name;
             model.Price = bind.Price;
             model.Description = bind.Description;
             model.Category = bind.Category;
             this.Context.SaveChanges();
+            this.AddLog(userId, OperationLog.Edit, "Product");
         }
 
         public DeleteProductVm GetDeleteProduct(int id)
@@ -106,15 +85,15 @@
             return vm;
         }
 
-        public void DeleteProduct(DeleteProductBm bind)
+        public void DeleteProduct(DeleteProductBm bind, string userId)
         {
             Product product = this.Context.Products.Find(bind.Id);
             this.Context.Products.Remove(product);
             this.Context.SaveChanges();
+            this.AddLog(userId, OperationLog.Delete, "Product");
         }
 
         #endregion
-
 
         #region CategoryService
         public void AddNewCategory(AddNewCategoryBm bind, string userId)
@@ -122,7 +101,7 @@
             Category model = Mapper.Instance.Map<AddNewCategoryBm, Category>(bind);
             this.Context.Categories.Add(model);
             this.Context.SaveChanges();
-            this.AddLog(userId, OperationLog.Add, "category");
+            this.AddLog(userId, OperationLog.Add, "Category");
         }
 
         public EditCategoryVm GetEditCategory(int id)
@@ -132,15 +111,12 @@
             return vm;
         }
 
-        // public void EditCategory(EditCategoryBm bind, int id, string userId, HttpPostedFileBase image)
         public void EditCategory(EditCategoryBm bind, int id, string userId)
         {
             Category model = this.Context.Categories.Find(bind.Id);
-            //model.Image = new byte[image.ContentLength];
-            // image.InputStream.Read(bind.Image, 0, image.ContentLength);
             model.Name = bind.Name;
             this.Context.SaveChanges();
-            this.AddLog(userId, OperationLog.Edit, "category");
+            this.AddLog(userId, OperationLog.Edit, "Category");
         }
 
         public DeleteCategoryVm GetDeleteCategory(int id)
@@ -156,20 +132,15 @@
 
             foreach (var product in this.Context.Products)
             {
-                //if (product.CategoryId != null)
-                //{
-                    if (category.Id == product.Category.Id)
-                    {
-                        product.Category = null;
-                        // this.Context.SaveChanges();
-                    }
-               // }
-
+                if (category.Id == product.Category.Id)
+                {
+                    product.Category = null;
+                }
             }
 
             this.Context.Categories.Remove(category);
             this.Context.SaveChanges();
-            this.AddLog(userId, OperationLog.Delete, "category");
+            this.AddLog(userId, OperationLog.Delete, "Category");
         }
         #endregion
 

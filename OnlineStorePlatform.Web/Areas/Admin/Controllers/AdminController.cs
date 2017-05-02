@@ -1,20 +1,13 @@
 ﻿namespace OnlineStorePlatform.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNet.Identity;
-    using Models.EntityModels;
     using Models.ViewModels.Products;
     using OnlineStorePlatform.Models.BindingModels;
-    using OnlineStorePlatform.Models.ViewModels.Admin;
+    using Models.ViewModels.Admin;
     using OnlineStorePlatform.Models.ViewModels.Category;
     using OnlineStorePlatform.Service;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
-    using PagedList;
-    using PagedList.Mvc;
-    using System.Web.Security;
 
     [Authorize(Roles = "admin, manager")]
     [RouteArea("Admin")]
@@ -27,7 +20,7 @@
         {
             this.service = new AdminService();
 
-            //this HomeSevice is use for AddProduct. Need to display all categories in add view
+            //HomeSevice is use for AddProduct. Need to display all categories in add view
             this.serviceForCategories = new HomeService();
         }
 
@@ -38,9 +31,6 @@
         {
             AdminPageVm vm = this.service.GetAdminPage(page, null);
             return View(vm);
-
-            //var products = this.service.GetAdminPage();
-            //return Json(new { data = products }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -58,19 +48,9 @@
                 vm = this.service.GetAdminPage(page, searchAdmin);
                 return this.View(vm);
             }
-
-            //var products = this.service.GetAdminPage();
-            //return Json(new { data = products }, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult GetAllProducts()
-        {
-            var products = this.service.GetAllProducts();
-            return Json(new { data = products }, JsonRequestBehavior.AllowGet);
         }
 
         #region Products
-        //TODO: add product with existiong category
         #region Add
         [HttpGet]
         [Route("add/product")]
@@ -86,7 +66,8 @@
         {
             if (this.ModelState.IsValid)
             {
-                this.service.AddNewProduct(bind);
+                var userId = User.Identity.GetUserId();
+                this.service.AddNewProduct(bind , userId);
                 this.service.ChangeProductBindIdForImageFileName(bind);
                 bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
                 return this.RedirectToAction("Index");
@@ -94,7 +75,7 @@
             return this.View();
         }
         #endregion
-        //TODO: edit product categories
+
         #region Edit
         [HttpGet]
         [Route("edit/product/{id}")]
@@ -108,7 +89,8 @@
         [Route("edit/product/{id}")]
         public ActionResult EditProduct(EditProductBm bind, int id)
         {
-            this.service.EditProduct(bind, id);
+            var userId = User.Identity.GetUserId();
+            this.service.EditProduct(bind, id, userId);
             bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
             return this.RedirectToAction("Index");
         }
@@ -127,7 +109,8 @@
         [Route("delete/product/{id}")]
         public ActionResult DeleteProduct(DeleteProductBm bind)
         {
-            this.service.DeleteProduct(bind);
+            var userId = User.Identity.GetUserId();
+            this.service.DeleteProduct(bind, userId);
             return this.RedirectToAction("Index");
         }
         #endregion
@@ -141,7 +124,6 @@
         [Route("add/category")]
         public ActionResult AddNewCategory()
         {
-            //return this.PartialView("_AddNewCategory.cshtml");
             return this.View();
         }
 
@@ -203,7 +185,6 @@
         #endregion
 
         #endregion
-
 
         public JsonResult GetCategoriesJson(string term)
         {
