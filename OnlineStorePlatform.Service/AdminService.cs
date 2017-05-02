@@ -11,6 +11,8 @@
     using Models.BindingModels;
     using Models.Enums;
     using PagedList;
+    using Models.BindingModels.Product;
+    using Models.BindingModels.Category;
 
     public class AdminService : Service
     {

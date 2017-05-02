@@ -47,34 +47,18 @@
                                     </p>*@
                                 @using (Html.BeginForm("AddToCart", "Cart"))
                                 {
-                                    //<div class="pull-right">
                                     @Html.HiddenFor(vms => vm.Id, new { Name = "productId" })
                                     @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                                    <input type="submit" class="btn btn-primary" value="Add To Cart" />
-                                    //</div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-shopping-basket " aria-hidden="true"></i>
+                                        Add To Cart
+                                    </button>
                                 }
                             </div>
                         </div>
                     </div>
                 }
             }
-            @*asdsadsadsadsadsadsadsad<div class="col-md-4 col-xs-6">
-                    <div class="box bg-color-1">
-                        <div class="box-img border-color-1 text-center">
-                            <a href="single-product.html">
-                                <img src="img/home/product/product-img1.jpg" alt="image" class="img-responsive">
-                            </a>
-                            <a data-toggle="modal" href=".quick-view" class="btn-block"><i class="fa fa-eye" aria-hidden="true"></i>Quick View</a>
-                        </div>
-                        <div class="box-info">
-                            <h4>Barbie Racing Car</h4>
-                            <div class="price">
-                                <span>$50</span>
-                            </div>
-                            <a href="cart-page.html" class="btn btn-primary "><i class="fa fa-shopping-basket " aria-hidden="true"></i>Add to Cart</a>
-                        </div>
-                    </div>
-                </div>asaasdsadsadsadasdsa*@
         </div>
         <div class="btn-group pull-right">
             @Html.PageLinks(Model.PagingInfo, x => Url.Action("HomeProducts", new { page = x, category = Model.CurrentCategory }))

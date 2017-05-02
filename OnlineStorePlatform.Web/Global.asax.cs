@@ -3,6 +3,8 @@ using OnlineStorePlatform.Data;
 using OnlineStorePlatform.Models.BindingModels;
 using OnlineStorePlatform.Models.BindingModels.Blog;
 using OnlineStorePlatform.Models.BindingModels.Cart;
+using OnlineStorePlatform.Models.BindingModels.Category;
+using OnlineStorePlatform.Models.BindingModels.Product;
 using OnlineStorePlatform.Models.EntityModels;
 using OnlineStorePlatform.Models.EntityModels.Cart;
 using OnlineStorePlatform.Models.ViewModels.Blog;
@@ -39,10 +41,6 @@ namespace OnlineStorePlatform.Web
         {
             Mapper.Initialize(expresion =>
             {
-                expresion.CreateMap<Product, GetAllProductsVm>()
-                .ForMember(vm=>vm.CategoryName, configurationExpresion => configurationExpresion
-                .MapFrom(product=> product.Category.Name));
-
                 expresion.CreateMap<Category, CategoriesVm>();
 
                 expresion.CreateMap<AddNewCategoryBm, Category>();
@@ -51,10 +49,9 @@ namespace OnlineStorePlatform.Web
 
                 expresion.CreateMap<Category, DeleteCategoryVm>();
 
-                //Add new Category insted existing one
-                // expresion.CreateMap<AddNewProductBm, Product>();
-                //expresion.CreateMap<AddNewProductBm, Product>()
-                //.ForMember(vm=>vm.Category, config=>config.MapFrom(p=>context.Categories.Find(p.CategoryId)));
+                expresion.CreateMap<Product, GetAllProductsVm>()
+               .ForMember(vm => vm.CategoryName, configurationExpresion => configurationExpresion
+                 .MapFrom(product => product.Category.Name));
 
                 expresion.CreateMap<Product, EditProductVm>().ForMember(vm => vm.CategoryName, configurationExpresion => configurationExpresion
                   .MapFrom(product => product.Category.Name));
@@ -63,7 +60,7 @@ namespace OnlineStorePlatform.Web
 
                 expresion.CreateMap<Product, DeleteProductVm>();
 
-                expresion.CreateMap<Article, ArticleViewModel>();
+                expresion.CreateMap<Product, ProductModalVm>();
 
                 expresion.CreateMap<Order, OrderVm>();
 
@@ -71,7 +68,7 @@ namespace OnlineStorePlatform.Web
 
                 expresion.CreateMap<AddNewArticleBm, Article>();
 
-                expresion.CreateMap<Product, ProductModalVm>();
+                expresion.CreateMap<Article, ArticleViewModel>();
             });
         }
     }

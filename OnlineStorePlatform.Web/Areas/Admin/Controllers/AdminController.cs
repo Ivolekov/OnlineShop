@@ -8,6 +8,8 @@
     using OnlineStorePlatform.Service;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Models.BindingModels.Category;
+    using Models.BindingModels.Product;
 
     [Authorize(Roles = "admin, manager")]
     [RouteArea("Admin")]

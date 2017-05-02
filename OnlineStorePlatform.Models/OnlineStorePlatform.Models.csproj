@@ -106,15 +106,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindingModels\AddNewCategoryBm.cs" />
-    <Compile Include="BindingModels\AddNewProductBm.cs" />
+    <Compile Include="BindingModels\Category\AddNewCategoryBm.cs" />
+    <Compile Include="BindingModels\Product\AddNewProductBm.cs" />
     <Compile Include="BindingModels\Blog\AddNewArticleBm.cs" />
     <Compile Include="BindingModels\Cart\CartBm.cs" />
     <Compile Include="BindingModels\Cart\CustomerBm.cs" />
-    <Compile Include="BindingModels\DeleteCategoryBm.cs" />
-    <Compile Include="BindingModels\DeleteProductBm.cs" />
-    <Compile Include="BindingModels\EditCategoryBm.cs" />
-    <Compile Include="BindingModels\EditProductBm.cs" />
+    <Compile Include="BindingModels\Category\DeleteCategoryBm.cs" />
+    <Compile Include="BindingModels\Product\DeleteProductBm.cs" />
+    <Compile Include="BindingModels\Category\EditCategoryBm.cs" />
+    <Compile Include="BindingModels\Product\EditProductBm.cs" />
     <Compile Include="EntityModels\ApplicationUser.cs" />
     <Compile Include="EntityModels\Article.cs" />
     <Compile Include="EntityModels\Cart\Cart.cs" />
@@ -162,9 +162,6 @@
     <Compile Include="ViewModels\Products\GetAllProductsVm.cs" />
     <Compile Include="ViewModels\Products\ProductListVm.cs" />
     <Compile Include="ViewModels\Products\ProductModalVm.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\PagedList.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

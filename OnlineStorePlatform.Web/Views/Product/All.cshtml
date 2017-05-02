@@ -50,11 +50,12 @@
                                     </p>*@
                                 @using (Html.BeginForm("AddToCart", "Cart"))
                                 {
-                                    //<div class="pull-right">
                                     @Html.HiddenFor(vms => vm.Id, new { Name = "productId" })
                                     @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                                    <input type="submit" class="btn btn-primary" value="Add To Cart" />
-                                    //</div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-shopping-basket " aria-hidden="true"></i>
+                                        Add To Cart
+                                    </button>
                                 }
                             </div>
                         </div>
