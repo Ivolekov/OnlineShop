@@ -9,25 +9,28 @@
     using System.Net.Mail;
     using System.Net;
     using System.Text;
+    using Data.Interfaces;
 
     public class HomeService : Service, IHomeService
     {
         private EmailSettings emailSettings;
 
-        public HomeService()
+        public HomeService(IOnlineStoreData context) 
+            : base(context)
         {
             this.emailSettings = new EmailSettings();
         }
+
         public IEnumerable<CategoriesVm> GetAllCategories()
         {
-            IEnumerable<Category> model = this.Context.Categories;
+            IEnumerable<Category> model = this.Context.Categories.GetAll();
             IEnumerable<CategoriesVm> vms = Mapper.Instance.Map<IEnumerable<Category>, IEnumerable<CategoriesVm>>(model);
             return vms;
         }
 
         public IEnumerable<GetAllProductsVm> GetProductList()
         {
-            IEnumerable<Product> model = this.Context.Products;
+            IEnumerable<Product> model = this.Context.Products.GetAll();
             IEnumerable<GetAllProductsVm> vms = Mapper.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(model);
             return vms;
         }

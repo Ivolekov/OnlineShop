@@ -1,13 +1,15 @@
 ﻿namespace OnlineStorePlatform.Service
 {
     using Data;
+    using Data.Interfaces;
+
     public abstract class Service
     {
-        public Service()
+        public Service(IOnlineStoreData context)
         {
-            this.Context = new OnlineStorePlatformContext();
+            this.Context = context;
         }
 
-        protected OnlineStorePlatformContext Context { get; set; }
+        protected IOnlineStoreData Context { get; }
     }
 }

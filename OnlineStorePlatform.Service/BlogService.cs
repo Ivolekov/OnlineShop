@@ -8,29 +8,35 @@
     using AutoMapper;
     using Models.BindingModels.Blog;
     using Interfaces;
+    using Data.Interfaces;
 
     public class BlogService : Service, IBlogService
     {
+        public BlogService(IOnlineStoreData context) 
+            : base(context)
+        {
+        }
+
         public IEnumerable<ArticleViewModel> GetAllArticles()
         {
-            IEnumerable<Article> model = this.Context.Articles;
+            IEnumerable<Article> model = this.Context.Articles.GetAll();
             IEnumerable<ArticleViewModel> vms = Mapper.Map<IEnumerable<Article>, IEnumerable<ArticleViewModel>>(model);
             return vms;
         }
 
         public void AddNewArticle(AddNewArticleBm bind, string userName)
         {
-            ApplicationUser currentUser = this.Context.Users.FirstOrDefault(u => u.UserName == userName);
+            User currentUser = this.Context.Users.SingleOrDefault(u => u.UserName == userName);
             Article model = Mapper.Map<AddNewArticleBm, Article>(bind);
             model.Author = currentUser;
             model.PublishDate = DateTime.Today.ToString("dd-MM-yyyy");
-            this.Context.Articles.Add(model);
+            this.Context.Articles.InsertOrUpdate(model);
             this.Context.SaveChanges();
         }
 
         public void ChangeArticleBindIdForImageFileName(AddNewArticleBm bind)
         {
-            var article = this.Context.Articles.OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
+            Article article = this.Context.Articles.GetAll().OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
             bind.Id = article.Id;
         }
 

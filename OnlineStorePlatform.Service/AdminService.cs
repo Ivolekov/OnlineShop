@@ -13,23 +13,29 @@
     using Models.BindingModels.Product;
     using Models.BindingModels.Category;
     using Interfaces;
+    using Data.Interfaces;
 
     public class AdminService : Service, IAdminService
     {
+        public AdminService(IOnlineStoreData context) 
+            : base(context)
+        {
+        }
+
         public AdminPageVm GetAdminPage(int? page, string search)
         {
 
             AdminPageVm vm = new AdminPageVm();
-            IEnumerable<Category> categories = this.Context.Categories;
+            IEnumerable<Category> categories = this.Context.Categories.GetAll();
             IEnumerable<Product> products;
 
             if (string.IsNullOrEmpty(search))
             {
-                products = this.Context.Products;
+                products = this.Context.Products.GetAll();
             }
             else
             {
-                products = this.Context.Products.Where(product => product.Name.StartsWith(search));
+                products = this.Context.Products.Find(product => product.Name.StartsWith(search));
             }
 
             IEnumerable<CategoriesVm> categoriesVms = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoriesVm>>(categories);
@@ -56,21 +62,21 @@
                 Price = bind.Price,
 
             };
-            this.Context.Products.Add(product);
+            this.Context.Products.InsertOrUpdate(product);
             this.Context.SaveChanges();
             this.AddLog(userId, OperationLog.Add, "Product");
         }
 
         public EditProductVm GetEditProduct(int id)
         {
-            Product model = this.Context.Products.Find(id);
+            Product model = this.Context.Products.GetById(id);
             EditProductVm vm = Mapper.Map<Product, EditProductVm>(model);
             return vm;
         }
 
         public void EditProduct(EditProductBm bind, int id, string userId)
         {
-            Product model = this.Context.Products.Find(bind.Id);
+            Product model = this.Context.Products.GetById(bind.Id);
             // model.Image = bind.Image;
             model.Name = bind.Name;
             model.Price = bind.Price;
@@ -82,15 +88,15 @@
 
         public DeleteProductVm GetDeleteProduct(int id)
         {
-            Product model = this.Context.Products.Find(id);
+            Product model = this.Context.Products.GetById(id);
             DeleteProductVm vm = Mapper.Map<Product, DeleteProductVm>(model);
             return vm;
         }
 
         public void DeleteProduct(DeleteProductBm bind, string userId)
         {
-            Product product = this.Context.Products.Find(bind.Id);
-            this.Context.Products.Remove(product);
+            Product product = this.Context.Products.GetById(bind.Id);
+            this.Context.Products.Delete(product);
             this.Context.SaveChanges();
             this.AddLog(userId, OperationLog.Delete, "Product");
         }
@@ -101,21 +107,21 @@
         public void AddNewCategory(AddNewCategoryBm bind, string userId)
         {
             Category model = Mapper.Instance.Map<AddNewCategoryBm, Category>(bind);
-            this.Context.Categories.Add(model);
+            this.Context.Categories.InsertOrUpdate(model);
             this.Context.SaveChanges();
             this.AddLog(userId, OperationLog.Add, "Category");
         }
 
         public EditCategoryVm GetEditCategory(int id)
         {
-            Category model = this.Context.Categories.Find(id);
+            Category model = this.Context.Categories.GetById(id);
             EditCategoryVm vm = Mapper.Map<Category, EditCategoryVm>(model);
             return vm;
         }
 
         public void EditCategory(EditCategoryBm bind, int id, string userId)
         {
-            Category model = this.Context.Categories.Find(bind.Id);
+            Category model = this.Context.Categories.GetById(bind.Id);
             model.Name = bind.Name;
             this.Context.SaveChanges();
             this.AddLog(userId, OperationLog.Edit, "Category");
@@ -123,16 +129,16 @@
 
         public DeleteCategoryVm GetDeleteCategory(int id)
         {
-            Category model = this.Context.Categories.Find(id);
+            Category model = this.Context.Categories.GetById(id);
             DeleteCategoryVm vm = Mapper.Map<Category, DeleteCategoryVm>(model);
             return vm;
         }
 
         public void DeleteCategory(DeleteCategoryBm bind, string userId)
         {
-            Category category = this.Context.Categories.Find(bind.Id);
+            Category category = this.Context.Categories.GetById(bind.Id);
 
-            foreach (var product in this.Context.Products)
+            foreach (var product in this.Context.Products.GetAll())
             {
                 if (category.Id == product.Category.Id)
                 {
@@ -140,7 +146,7 @@
                 }
             }
 
-            this.Context.Categories.Remove(category);
+            this.Context.Categories.Delete(category);
             this.Context.SaveChanges();
             this.AddLog(userId, OperationLog.Delete, "Category");
         }
@@ -149,7 +155,7 @@
         #region Helppers
         private void AddLog(string userId, OperationLog operation, string modifiedTable)
         {
-            ApplicationUser loggedUser = this.Context.Users.Find(userId);
+            User loggedUser = this.Context.Users.GetByStringId(userId);
             Log log = new Log()
             {
                 User = loggedUser,
@@ -158,24 +164,24 @@
                 Operation = operation
             };
 
-            this.Context.Logs.Add(log);
+            this.Context.Logs.InsertOrUpdate(log);
             this.Context.SaveChanges();
         }
 
         public List<string> GetGategoriesAsString(string term)
         {
-            return this.Context.Categories.Where(category => category.Name.StartsWith(term)).Select(p => p.Name).ToList();
+            return this.Context.Categories.Find(category => category.Name.StartsWith(term)).Select(p => p.Name).ToList();
         }
 
         public void ChangeCategoryBindIdForImageFileName(AddNewCategoryBm bind)
         {
-            var category = this.Context.Categories.OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
+            Category category = this.Context.Categories.GetAll().OrderByDescending(c=>c.Id).FirstOrDefault();
             bind.Id = category.Id;
         }
 
         public void ChangeProductBindIdForImageFileName(AddNewProductBm bind)
         {
-            var product = this.Context.Products.OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
+            Product product = this.Context.Products.GetAll().OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
             bind.Id = product.Id;
         }
         #endregion

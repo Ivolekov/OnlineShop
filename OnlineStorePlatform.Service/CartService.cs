@@ -9,19 +9,21 @@
     using System.Net.Mail;
     using System.Net;
     using System.Text;
+    using Data.Interfaces;
 
     public class CartService : Service, ICartService
     {
         private EmailSettings emailSettings;
 
-        public CartService()
+        public CartService(IOnlineStoreData context) 
+            : base(context)
         {
             this.emailSettings = new EmailSettings();
         }
 
         public Product GetProductById(int productId)
         {
-           return this.Context.Products.FirstOrDefault(p => p.Id == productId);
+           return this.Context.Products.SingleOrDefault(p => p.Id == productId);
         }
 
         public void AddOrderToDatabase(Customer customerEntity)
@@ -32,13 +34,13 @@
                 IsDelivered = false,
                 DateTime = DateTime.Now.ToString("dd-MM-yyyy(HH:MM)")
             };
-            this.Context.Orders.Add(order);
+            this.Context.Orders.InsertOrUpdate(order);
             this.Context.SaveChanges();
         }
 
-        public Customer AddProductsToCustomer(IEnumerable<CartLine> cartLine, string user)
+        public Customer AddProductsToCustomer(IEnumerable<CartLine> cartLine, string userId)
         {
-            ApplicationUser currentUser = this.Context.Users.Find(user);
+            User currentUser = this.Context.Users.GetByStringId(userId);
             ICollection<Product> productsCollection = new HashSet<Product>();
 
             var products = cartLine.Select(c => c.Product);
@@ -46,15 +48,15 @@
             {
                 productsCollection.Add(product);
             }
-            Customer customer = this.Context.Customers.FirstOrDefault(c=>c.User.Id == currentUser.Id);
+            Customer customer = this.Context.Customers.SingleOrDefault(c=>c.User.Id == currentUser.Id);
             customer.Products = productsCollection;
             return customer;
         }
 
-        public void AddDataToShippingDetails(ShippingDetails shippingDetails, string user)
+        public void AddDataToShippingDetails(ShippingDetails shippingDetails, string userId)
         {
-            ApplicationUser currentUser = this.Context.Users.Find(user);
-            var order = this.Context.Orders.OrderByDescending(ord => ord.Id).FirstOrDefault();
+            User currentUser = this.Context.Users.GetByStringId(userId);
+            var order = this.Context.Orders.GetAll().OrderByDescending(ord => ord.Id).FirstOrDefault();
             shippingDetails.OrderId = order.Id;
             shippingDetails.Email = currentUser.Email;
         }

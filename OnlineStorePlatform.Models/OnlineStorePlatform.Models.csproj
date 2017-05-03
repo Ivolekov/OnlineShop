@@ -126,6 +126,7 @@
     <Compile Include="EntityModels\Log.cs" />
     <Compile Include="EntityModels\Order.cs" />
     <Compile Include="EntityModels\Product.cs" />
+    <Compile Include="EntityModels\User.cs" />
     <Compile Include="Enums\OperationLog.cs" />
     <Compile Include="PagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

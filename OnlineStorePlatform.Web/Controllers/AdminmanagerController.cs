@@ -48,7 +48,7 @@ namespace OnlineStorePlatform.Web.Controllers
         }
 
         [Route("sentorders")]
-        public ActionResult SentOrders(int? id)
+        public ActionResult SentOrders(int id)
         {
             this.service.SendDeliver(id);
             return this.RedirectToAction("Orders");

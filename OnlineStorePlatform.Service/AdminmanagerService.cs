@@ -11,61 +11,75 @@
     using AutoMapper;
     using PagedList;
     using Interfaces;
+    using Data.Interfaces;
+    using Data;
+    using System;
 
     public class AdminmanagerService : Service, IAdminmanagerService
     {
+        public AdminmanagerService(IOnlineStoreData context) 
+            : base(context)
+        {
+        }
+
         public IEnumerable<SelectListItem> GetAllRoles()
         {
-            var roles =  this.Context.Roles.ToList().Select(r=> new SelectListItem()
+            using (OnlineStorePlatformContext db = new OnlineStorePlatformContext())
             {
-                Value = r.Name,
-                Text = r.Name
-            });
-            return roles;
+                var roles = db.Roles.ToList().Select(r => new SelectListItem()
+                {
+                    Value = r.Name,
+                    Text = r.Name
+                });
+                return roles;
+            }
         }
 
         public void AssignRole(RoleVm rvm, string searchUser)
         {
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.Context));
-            ApplicationUser user = userManager.Users.Where(u=>u.Email.StartsWith(searchUser)).FirstOrDefault();
-            var customerRole = this.Context.Roles.FirstOrDefault(r => r.Name == "customer");
-            rvm.User = user.Id;
-            var roles = user.Roles.ToArray();
-            foreach (var role in user.Roles)
+            using (OnlineStorePlatformContext db = new OnlineStorePlatformContext())
             {
-                if (role.RoleId != customerRole.Id)
+                var userManager = new UserManager<User>(new UserStore<User>(db));
+                User user = userManager.Users.Where(u => u.Email.StartsWith(searchUser)).FirstOrDefault();
+                var customerRole = db.Roles.FirstOrDefault(r => r.Name == "customer");
+                rvm.User = user.Id;
+                var roles = user.Roles.ToArray();
+                foreach (var role in user.Roles)
                 {
-                    user.Roles.Remove(role);
+                    if (role.RoleId != customerRole.Id)
+                    {
+                        user.Roles.Remove(role);
+                    }
+                    if (user.Roles.Count <= 1)
+                    {
+                        break;
+                    }
                 }
-                if (user.Roles.Count <=1)
-                {
-                    break;
-                }
+                this.Context.SaveChanges();
+                var ruser = userManager.Users.Where(u => u.Email.StartsWith(searchUser)).FirstOrDefault();
+                user = userManager.FindById(rvm.User);
+
+                userManager.AddToRole(rvm.User, rvm.Role);
             }
-            this.Context.SaveChanges();
-            var ruser = userManager.Users.Where(u => u.Email.StartsWith(searchUser)).FirstOrDefault();
-            user = userManager.FindById(rvm.User);
-           
-            userManager.AddToRole(rvm.User, rvm.Role);
         }
 
-        public void SendDeliver(int? id)
+        public void SendDeliver(int id)
         {
-            Order order = this.Context.Orders.Find(id);
+            Order order = this.Context.Orders.GetById(id);
             order.IsDelivered = true;
             this.Context.SaveChanges();
         }
 
         public IEnumerable<OrderVm> GetAllOrders(int? page)
         {
-            IEnumerable<Order> orders = this.Context.Orders;
+            IEnumerable<Order> orders = this.Context.Orders.GetAll();
             IEnumerable<OrderVm> vms = Mapper.Map<IEnumerable<Order>, IEnumerable<OrderVm>>(orders);
             return vms.ToPagedList(page ?? 1, 8);
         }
 
         public List<string> GetUserEmailAsString(string term)
         {
-            return this.Context.Users.Where(user => user.Email.StartsWith(term)).Select(u => u.Email).ToList();
+            return this.Context.Users.Find(user => user.Email.StartsWith(term)).Select(u => u.Email).ToList();
         }
     }
 }

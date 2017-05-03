@@ -10,6 +10,8 @@ namespace OnlineStorePlatform.Web.App_Start
     using Ninject.Web.Common;
     using Service.Interfaces;
     using Service;
+    using Data.Interfaces;
+    using Data;
 
     public static class NinjectWebCommon 
     {
@@ -70,6 +72,8 @@ namespace OnlineStorePlatform.Web.App_Start
             kernel.Bind<ILogService>().To<LogService>();
             kernel.Bind<INavService>().To<NavService>();
             kernel.Bind<IProductService>().To<ProductService>();
+            kernel.Bind<IOnlineStoreDbContext>().To<OnlineStorePlatformContext>();
+            kernel.Bind<IOnlineStoreData>().To<OnlineStoreData>();
         }        
     }
 }

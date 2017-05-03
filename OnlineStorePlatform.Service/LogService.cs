@@ -5,9 +5,15 @@
     using Models.ViewModels.Log;
     using Models.EntityModels;
     using Interfaces;
+    using Data.Interfaces;
 
     public class LogService : Service, ILogService
     {
+        public LogService(IOnlineStoreData context) 
+            : base(context)
+        {
+        }
+
         public AllLogsPageVm GetAllLogsPageVm(string email, int? page)
         {
             var currentPage = 1;
@@ -19,11 +25,11 @@
             IEnumerable<Log> logs;
             if (email != null)
             {
-                logs = this.Context.Logs.Where(log => log.User.Email == email);
+                logs = this.Context.Logs.Find(log => log.User.Email == email);
             }
             else
             {
-                logs = this.Context.Logs;
+                logs = this.Context.Logs.GetAll();
             }
 
             int allLogPagesCount = logs.Count() / 20 + (logs.Count() % 20 == 0 ? 0 : 1);

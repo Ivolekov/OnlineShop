@@ -3,6 +3,7 @@
     using Models.BindingModels.Blog;
     using OnlineStorePlatform.Models.ViewModels.Blog;
     using OnlineStorePlatform.Service;
+    using Service.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,11 +14,11 @@
     //[Authorize(Roles ="customer")]
     public class BlogController : Controller
     {
-        private BlogService service;
+        private IBlogService service;
 
-        public BlogController()
+        public BlogController(IBlogService service)
         {
-            this.service = new BlogService();
+            this.service = service;
         }
 
         [Route("Articles")]

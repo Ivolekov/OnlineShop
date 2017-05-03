@@ -64,7 +64,7 @@ namespace OnlineStorePlatform.Web
 
                 expresion.CreateMap<Order, OrderVm>();
 
-                expresion.CreateMap<ApplicationUser, ArticleAuthorViewModel>();
+                expresion.CreateMap<User, ArticleAuthorViewModel>();
 
                 expresion.CreateMap<AddNewArticleBm, Article>();
 

@@ -10,21 +10,37 @@
     using System.Web.Mvc;
     using Models.BindingModels.Category;
     using Models.BindingModels.Product;
+    using Service.Interfaces;
+    using Web.Controllers.Base;
+    using Data.Interfaces;
+    using Data;
 
     [Authorize(Roles = "admin, manager")]
     [RouteArea("Admin")]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
-        private AdminService service;
+        private IAdminService service;
 
-        private HomeService serviceForCategories;
-        public AdminController()
+        private IHomeService serviceForCategories;
+
+        public AdminController() 
+            : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
-            this.service = new AdminService();
+        }
+        public AdminController(IOnlineStoreData data):base(data)
+        {
+            this.service = new AdminService(data);
 
             //HomeSevice is use for AddProduct. Need to display all categories in edit view
-            this.serviceForCategories = new HomeService();
+            this.serviceForCategories = new HomeService(data);
         }
+        //public AdminController(IAdminService service, IHomeService serviceForCategories)
+        //{
+        //    this.service = service;
+
+        //    //HomeSevice is use for AddProduct. Need to display all categories in edit view
+        //    this.serviceForCategories = serviceForCategories;
+        //}
 
 
         [HttpGet]
