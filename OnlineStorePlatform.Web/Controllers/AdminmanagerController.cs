@@ -1,6 +1,10 @@
-﻿using OnlineStorePlatform.Models.ViewModels.Account;
+﻿using OnlineStorePlatform.Data;
+using OnlineStorePlatform.Data.Interfaces;
+using OnlineStorePlatform.Models.ViewModels.Account;
 using OnlineStorePlatform.Models.ViewModels.Order;
+using OnlineStorePlatform.Service;
 using OnlineStorePlatform.Service.Interfaces;
+using OnlineStorePlatform.Web.Controllers.Base;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -8,12 +12,18 @@ namespace OnlineStorePlatform.Web.Controllers
 {
     [Authorize(Roles = "manager")]
     [RoutePrefix("manager")]
-    public class AdminmanagerController : Controller
+    public class AdminmanagerController : BaseController
     {
         private IAdminmanagerService service;
-        public AdminmanagerController(IAdminmanagerService service)
+
+        public AdminmanagerController(IAdminmanagerService service) 
+            : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
             this.service = service;
+        }
+        public AdminmanagerController(IOnlineStoreData data, IAdminmanagerService service) : base(data)
+        {
+            this.service = new AdminmanagerService(data);
         }
 
         [Route("assign")]

@@ -1,20 +1,28 @@
 ﻿using Microsoft.AspNet.Identity;
+using OnlineStorePlatform.Data;
+using OnlineStorePlatform.Data.Interfaces;
 using OnlineStorePlatform.Models.EntityModels;
 using OnlineStorePlatform.Models.EntityModels.Cart;
 using OnlineStorePlatform.Models.ViewModels.Cart;
+using OnlineStorePlatform.Service;
 using OnlineStorePlatform.Service.Interfaces;
+using OnlineStorePlatform.Web.Controllers.Base;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace OnlineStorePlatform.Web.Controllers
 {
-    public class CartController : Controller
+    public class CartController : BaseController
     {
         private ICartService service;
-
-        public CartController(ICartService service)
+        public CartController(ICartService service) 
+            : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
             this.service = service;
+        }
+        public CartController(IOnlineStoreData data, ICartService service) : base(data)
+        {
+            this.service = new CartService(data);
         }
 
         public ViewResult Index(Cart cart, string returnUrl)

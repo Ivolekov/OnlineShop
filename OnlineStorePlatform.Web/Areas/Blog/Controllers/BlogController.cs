@@ -1,5 +1,7 @@
 ﻿namespace OnlineStorePlatform.Web.Areas.Blog.Controllers
 {
+    using Data;
+    using Data.Interfaces;
     using Models.BindingModels.Blog;
     using OnlineStorePlatform.Models.ViewModels.Blog;
     using OnlineStorePlatform.Service;
@@ -9,16 +11,22 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using Web.Controllers.Base;
 
     [RouteArea("blog")]
     //[Authorize(Roles ="customer")]
-    public class BlogController : Controller
+    public class BlogController : BaseController
     {
         private IBlogService service;
 
-        public BlogController(IBlogService service)
+        public BlogController(IBlogService service) 
+            : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
             this.service = service;
+        }
+        public BlogController(IOnlineStoreData data, IBlogService service) : base(data)
+        {
+            this.service = new BlogService(data);
         }
 
         [Route("Articles")]

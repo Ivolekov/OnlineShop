@@ -1,7 +1,0 @@
-﻿@model IEnumerable<OnlineStorePlatform.Models.ViewModels.Category.CategoriesVm>
-
-@foreach (var category in Model)
-{
-    @*<li><a href="products/@Html.DisplayFor(vm => category.Name)/1">@Html.DisplayFor(vm => category.Name)</a></li>*@
-    <li><button class="btn btn-block btn-default">@Html.DisplayFor(vm => category.Name)</button></li>
-}

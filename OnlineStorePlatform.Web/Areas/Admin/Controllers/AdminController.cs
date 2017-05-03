@@ -23,25 +23,19 @@
 
         private IHomeService serviceForCategories;
 
-        public AdminController() 
+        public AdminController(IAdminService service, IHomeService serviceForCategories) 
             : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
+            this.service = service;
+            this.serviceForCategories = serviceForCategories;
         }
-        public AdminController(IOnlineStoreData data):base(data)
+        public AdminController(IOnlineStoreData data, IAdminService service, IHomeService serviceForCategories) :base(data)
         {
             this.service = new AdminService(data);
 
             //HomeSevice is use for AddProduct. Need to display all categories in edit view
             this.serviceForCategories = new HomeService(data);
         }
-        //public AdminController(IAdminService service, IHomeService serviceForCategories)
-        //{
-        //    this.service = service;
-
-        //    //HomeSevice is use for AddProduct. Need to display all categories in edit view
-        //    this.serviceForCategories = serviceForCategories;
-        //}
-
 
         [HttpGet]
         [Route]
@@ -74,7 +68,7 @@
         [Route("add/product")]
         public ActionResult AddNewProduct()
         {
-            var vm = this.serviceForCategories.GetAllCategories();
+            IEnumerable<CategoriesVm> vm = this.serviceForCategories.GetAllCategories();
             return this.View(vm);
         }
 

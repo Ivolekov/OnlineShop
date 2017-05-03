@@ -1,22 +1,28 @@
 ﻿namespace OnlineStorePlatform.Web.Controllers
 {
+    using Base;
+    using Data;
+    using Data.Interfaces;
     using Models.ViewModels.Products;
+    using Service;
     using Service.Interfaces;
     using System.Collections.Generic;
     using System.Web.Mvc;
 
     [RoutePrefix("products")]
     [AllowAnonymous]
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         private IProductService service;
-        private IHomeService serviceForCategories;
-        public ProductController(IProductService service, IHomeService serviceForCategories)
+        public ProductController(IProductService service) 
+            : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
             this.service = service;
-            this.serviceForCategories = serviceForCategories;
         }
-
+        public ProductController(IOnlineStoreData data, IProductService service) : base(data)
+        {
+            this.service = new ProductService(data);
+        }
         [HttpGet]
         [AllowAnonymous]
         [Route("{category}/page{page}")]
@@ -80,14 +86,6 @@
         //    ProductListVm vm = this.service.GetData(searchText);
         //    return this.PartialView("SearchPartial", vm);
         //}
-
-        //TODO: DELETE THIS METHOD
-        [ChildActionOnly]
-        public ActionResult CreationVisualize()
-        {
-            var vm = this.serviceForCategories.GetAllCategories();
-            return this.PartialView("_GetAllCategories", vm);
-        }
 
         [Route("quickview")]
         public ActionResult QuickView(int id)

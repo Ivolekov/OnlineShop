@@ -1,19 +1,29 @@
 ﻿namespace OnlineStorePlatform.Web.Controllers
 {
+    using Base;
+    using Data;
+    using Data.Interfaces;
     using Models.EntityModels;
     using Models.ViewModels.Category;
+    using Service;
     using Service.Interfaces;
     using System.Collections.Generic;
     using System.Web.Mvc;
 
     [AllowAnonymous]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private IHomeService service;
-        public HomeController(IHomeService service)
+        public HomeController(IHomeService service) 
+            : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
             this.service = service;
         }
+        public HomeController(IOnlineStoreData data, IHomeService service) : base(data)
+        {
+            this.service = new HomeService(data);
+        }
+
         [HttpGet]
         [Route]
         public ActionResult Index()
