@@ -3,23 +3,21 @@
 @{
     ViewBag.Title = "Delete Category";
 }
-
-<hr />
-<hr />
-@using (Html.BeginForm())
-{
-    <div class="row edit-category">
-        <fieldset disabled>
-            <div class="form-group">
-                <img src="~/IMG/Categories/@Html.DisplayFor(vm=>vm.ImageUrl)" alt="Category" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div class="row deleteCat" style="margin-top: 20px;">
+    @using (Html.BeginForm())
+    {
+        <div class="row delete-category">
+            <div class="imgwrapper">
+                <img class="img-responsive" src="~/IMG/Categories/@Html.DisplayFor(vm=>vm.ImageUrl)" alt="Category" />
             </div>
             <div class="form-group">
                 @Html.LabelFor(vm => vm.Name)
-                @Html.EditorFor(vm => vm.Name, new { htmlAttbutes = new { @class = "form-control" } })
+                @Html.TextBoxFor(vm => vm.Name, new { @class = "form-control border-color-2", disabled = "disabled" })
             </div>
-        </fieldset>
-        <div class="form-group">
-            <input type="submit" value="Delete" class="form-group btn btn-danger btn-lg" />
+            <div class="form-group">
+                <input type="submit" value="Delete" class="form-group btn btn-danger btn-lg" />
+            </div>
         </div>
-    </div>
-}
+    }
+</div>

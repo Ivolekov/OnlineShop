@@ -181,3 +181,10 @@ div>form>.edit-category{
 .bg-dropdown{
     background-color:lightyellow;
 }
+
+.deleteCat{
+    margin-top:20px;
+}
+.imgwrapper {
+    width:25%;
+}

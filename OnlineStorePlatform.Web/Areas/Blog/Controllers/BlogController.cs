@@ -61,6 +61,7 @@
                 this.service.AddNewArticle(bind, userName);
                 this.service.ChangeArticleBindIdForImageFileName(bind);
                 bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Articles/") + bind.Title + bind.Id + ".png");
+                TempData["articleAddMessage"] = "Your article has been added to database";
                 return this.RedirectToAction("Articles");
             }
             return this.View();

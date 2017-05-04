@@ -11,7 +11,7 @@
     <h3>Ship to</h3>
     <div class="form-group">
         <label>Name:</label>
-        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control border-color-2" })
     </div>
     <h3>Address</h3>
     foreach (var property in ViewData.ModelMetadata.Properties)
@@ -23,7 +23,7 @@
                 <label>
                     @(property.DisplayName ?? property.PropertyName)
                 </label>
-                @Html.TextBox(property.PropertyName, null, new{@class = "form-control"})
+                @Html.TextBox(property.PropertyName, null, new{@class = "form-control border-color-1" })
             </div>
         }
     }

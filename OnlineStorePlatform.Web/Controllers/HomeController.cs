@@ -42,10 +42,11 @@
         [Route("contact")]
         public ActionResult Contact(ContactFormDetails contactFormDetails)
         {
-            ViewBag.Message = "Your contact page.";
             if (this.ModelState.IsValid)
             {
                 this.service.SendEmailFromContactForm(contactFormDetails);
+                TempData["contactFormMessage"] = "Your Message has been send. We will contact with you very soon";
+                return this.RedirectToAction("Index");
             }
             return View();
         }

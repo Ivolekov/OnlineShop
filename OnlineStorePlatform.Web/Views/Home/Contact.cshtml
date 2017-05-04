@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OnlineStorePlatform.Models.EntityModels.ContactFormDetails
+@{
     ViewBag.Title = "Contact";
 }
 
@@ -6,47 +7,32 @@
 <h2>@ViewBag.Title Us</h2>
 
 <div class="row">
-    <div class="col-xs-12">
-        <div class="homeContactContent">
-            <form action="#" method="POST" role="form">
-                <div class="row">
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <i class="fa fa-user"></i>
-                            <input type="text" class="form-control border-color-1" placeholder="First name" name="firsName">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <input type="text" class="form-control border-color-2" placeholder="Email address" name="email">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <i class="fa fa-phone" aria-hidden="true"></i>
-                            <input type="text" class="form-control border-color-5" placeholder="Phone" name="phoneNumber">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <i class="fa fa-book" aria-hidden="true"></i>
-                            <input type="text" class="form-control border-color-6" placeholder="Subject" name="subject">
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <i class="fa fa-comments" aria-hidden="true"></i>
-                            <textarea class="form-control border-color-4" placeholder="Write message" name="message"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <div class="formBtnArea">
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+    <form action="#" method="POST" role="form">
+        @Html.ValidationSummary()
+        <div class="form-group">
+            <i class="fa fa-user"></i>
+            <input type="text" class="form-control border-color-1" placeholder="First name" name="firsName">
+
         </div>
-    </div>
+        <div class="form-group">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            <input type="text" class="form-control border-color-2" placeholder="Email address" name="email">
+        </div>
+        <div class="form-group">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <input type="text" class="form-control border-color-5" placeholder="Phone" name="phoneNumber">
+        </div>
+        <div class="form-group">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            <input type="text" class="form-control border-color-6" placeholder="Subject" name="subject">
+        </div>
+        <div class="form-group">
+            <i class="fa fa-comments" aria-hidden="true"></i>
+            <textarea rows="7" cols="50" class="form-control border-color-4" placeholder="Write message" name="message"></textarea>
+        </div>
+        <div class="formBtnArea">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </div>
+
+    </form>
 </div>

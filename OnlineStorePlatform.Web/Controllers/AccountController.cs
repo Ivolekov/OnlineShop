@@ -10,7 +10,6 @@
     using OnlineStorePlatform.Models.ViewModels.Account;
     using OnlineStorePlatform.Models.EntityModels;
     using Service.Interfaces;
-    using Base;
 
     [Authorize]
     public class AccountController : Controller
