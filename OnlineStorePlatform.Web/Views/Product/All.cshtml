@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "All Products";
 }
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="~/Content/Site.css" rel="stylesheet" />
 <div class="row products">
     <div class="col-md-9 col-sm-7 col-xs-12 pull-right">
         <div class="row" id="productsRow">
@@ -19,9 +18,9 @@
 
                     <div class="col-md-4 col-sm-7 product">
                         <div class="thumbnail">
-                            <a href="#">
-                                <img src="~/IMG/Products/@Html.DisplayFor(vms => vm.Image)" alt="Product">
-                            </a>
+                            <div class="imgwrapper">
+                                <img class="img-responsive" src="~/IMG/Products/@Html.DisplayFor(vms => vm.Image)" alt="Product">
+                            </div>
                             @Html.ActionLink("Quick View", "QuickView",
                                 new { id = @Html.DisplayTextFor(vms => vm.Id) },
                                 new
@@ -42,12 +41,6 @@
                                 <h4>@Html.DisplayFor(vms => vm.Name)</h4>
                                 <h2>@Html.DisplayFor(vms => vm.Price)$</h2>
                                 <h4>@Html.DisplayFor(vms => vm.Category.Name)</h4>
-                                @*<p>
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fa fa-user fa-fw"></i>
-                                            Add To Card
-                                        </a>
-                                    </p>*@
                                 @using (Html.BeginForm("AddToCart", "Cart"))
                                 {
                                     @Html.HiddenFor(vms => vm.Id, new { Name = "productId" })
@@ -148,11 +141,12 @@
 </div>
 
 @section Scripts{
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#searchProducts").autocomplete({
-                source: '@Url.Action("GetProductsJson")',
-                minLength: 2
+                source: '@Url.Action("GetProductsJson")'
+                //minLength: 2
             });
         });
     </script>

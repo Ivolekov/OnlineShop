@@ -49,8 +49,10 @@
         }
 
         #region ProductService
-        public void AddNewProduct(AddNewProductBm bind, string userId)
+        public void AddNewProduct(AddNewProductBm bind, string userId, string searchCategory)
         {
+            Category category = this.Context.Categories.Find(p => p.Name.StartsWith(searchCategory)).FirstOrDefault();
+            bind.CategoryId = category.Id;
             //Product model = Mapper.Map<AddNewProductBm, Product>(bind);
             //this.Context.Products.Add(model);
             Product product = new Product()
@@ -183,6 +185,10 @@
         {
             Product product = this.Context.Products.GetAll().OrderByDescending(c => c.Id).FirstOrDefault(c => c.Id == c.Id);
             bind.Id = product.Id;
+        }
+        public List<string> GetCategoryJson(string term)
+        {
+            return this.Context.Categories.Find(cat => cat.Name.StartsWith(term)).Select(category => category.Name).ToList();
         }
         #endregion
     }

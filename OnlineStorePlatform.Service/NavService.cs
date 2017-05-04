@@ -16,7 +16,16 @@
 
         public IEnumerable<string> GetAllCategories()
         {
-            return this.Context.Products.GetAll().Select(x => x.Category.Name).Distinct().OrderBy(x => x);
+            IEnumerable<string> categoriesAsString = this.Context.Products.GetAll().Select(x => x.Category.Name).Distinct().OrderBy(x => x);
+            HashSet<string> categoriesForReturn = new HashSet<string>();
+            foreach (var categoryName in categoriesAsString)
+            {
+                if (categoryName != null)
+                {
+                    categoriesForReturn.Add(categoryName);
+                }
+            }
+            return categoriesForReturn;
         }
     }
 }

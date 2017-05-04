@@ -23,13 +23,13 @@
 
         private IHomeService serviceForCategories;
 
-        public AdminController(IAdminService service, IHomeService serviceForCategories) 
+        public AdminController(IAdminService service, IHomeService serviceForCategories)
             : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
             this.service = service;
             this.serviceForCategories = serviceForCategories;
         }
-        public AdminController(IOnlineStoreData data, IAdminService service, IHomeService serviceForCategories) :base(data)
+        public AdminController(IOnlineStoreData data, IAdminService service, IHomeService serviceForCategories) : base(data)
         {
             this.service = new AdminService(data);
 
@@ -68,23 +68,27 @@
         [Route("add/product")]
         public ActionResult AddNewProduct()
         {
-            IEnumerable<CategoriesVm> vm = this.serviceForCategories.GetAllCategories();
-            return this.View(vm);
+            //IEnumerable<CategoriesVm> vm = this.serviceForCategories.GetAllCategories();
+            return this.View();
         }
 
         [HttpPost]
         [Route("add/product")]
-        public ActionResult AddNewProduct(AddNewProductBm bind)
+        public ActionResult AddNewProduct(AddNewProductBm bind, string searchCategory)
         {
-            if (this.ModelState.IsValid)
+            if (!string.IsNullOrEmpty(searchCategory))
             {
-                var userId = User.Identity.GetUserId();
-                this.service.AddNewProduct(bind , userId);
-                this.service.ChangeProductBindIdForImageFileName(bind);
-                bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
-                TempData["message"] = string.Format($"Product \"{bind.Name}\" has been saved");
-                return this.RedirectToAction("Index");
+                if (this.ModelState.IsValid)
+                {
+                    var userId = User.Identity.GetUserId();
+                    this.service.AddNewProduct(bind, userId, searchCategory);
+                    this.service.ChangeProductBindIdForImageFileName(bind);
+                    bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
+                    TempData["message"] = string.Format($"Product \"{bind.Name}\" has been saved");
+                    return this.RedirectToAction("Index");
+                }
             }
+            TempData["EmptySearchFieldMessage"] = "All fields must be fill. Add product category in search input!";
             return this.View();
         }
         #endregion
@@ -104,9 +108,14 @@
         {
             var userId = User.Identity.GetUserId();
             this.service.EditProduct(bind, id, userId);
-            bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
-            TempData["edit-message"] = string.Format($"Product \"{bind.Name}\" has been edited");
-            return this.RedirectToAction("Index");
+            if (bind.ImageFile != null)
+            {
+                bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Products/") + bind.Name + bind.Id + ".png");
+                TempData["edit-message"] = string.Format($"Product \"{bind.Name}\" has been edited");
+                return this.RedirectToAction("Index");
+            }
+
+            return this.RedirectToAction("EditProduct");
         }
         #endregion
 
@@ -152,9 +161,17 @@
 
                 this.service.AddNewCategory(bind, userId);
                 this.service.ChangeCategoryBindIdForImageFileName(bind);
-                bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Categories/") + bind.Name + bind.Id + ".png");
-                TempData["message"] = string.Format($" Category \"{bind.Name}\" has been saved");
-                return this.RedirectToAction("Index");
+                if (bind.ImageFile != null)
+                {
+                    bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Categories/") + bind.Name + bind.Id + ".png");
+                    TempData["message"] = string.Format($" Category \"{bind.Name}\" has been saved");
+                    return this.RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = string.Format($" Category need name and image");
+                    
+                }
             }
             return this.View();
         }
@@ -176,9 +193,18 @@
         {
             var userId = User.Identity.GetUserId();
             this.service.EditCategory(bind, id, userId);
-            bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Categories/") + bind.Name + bind.Id + ".png");
-            TempData["edit-message"] = string.Format($" Category \"{bind.Name}\" has been edited");
-            return this.RedirectToAction("Index");
+            if (bind.ImageFile != null)
+            {
+                bind.ImageFile.SaveAs(Server.MapPath("~/IMG/Categories/") + bind.Name + bind.Id + ".png");
+                TempData["edit-message"] = string.Format($" Category \"{bind.Name}\" has been edited");
+                return this.RedirectToAction("Index");
+            }
+            else
+            {
+                //TempData["errorMessage"] = string.Format($" Category need name and image");
+                return this.RedirectToAction("EditCategory");
+
+            }
         }
         #endregion
 
@@ -204,6 +230,7 @@
 
         #endregion
 
+        //[Route("GetCategoriesJson")]
         public JsonResult GetCategoriesJson(string term)
         {
             List<string> products = new List<string>();
