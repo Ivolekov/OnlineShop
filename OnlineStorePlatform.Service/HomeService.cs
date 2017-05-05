@@ -11,6 +11,7 @@
     using System.Text;
     using Data.Interfaces;
     using System;
+    using Models.ViewModels.Home;
 
     public class HomeService : Service, IHomeService
     {
@@ -22,11 +23,16 @@
             this.emailSettings = new EmailSettings();
         }
 
-        public IEnumerable<CategoriesVm> GetAllCategories()
+        public HomeIndexVm GetAllCategories()
         {
             IEnumerable<Category> model = this.Context.Categories.GetAll();
             IEnumerable<CategoriesVm> vms = Mapper.Instance.Map<IEnumerable<Category>, IEnumerable<CategoriesVm>>(model);
-            return vms;
+            IEnumerable<Product> products = this.Context.Products.Take(4);
+            IEnumerable<GetAllProductsVm> productvms = Mapper.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(products);
+            HomeIndexVm homevms = new HomeIndexVm();
+            homevms.Categories = Mapper.Instance.Map<IEnumerable<Category>, IEnumerable<CategoriesVm>>(model);
+            homevms.BestSellersProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(products);
+            return homevms;
         }
 
         public IEnumerable<GetAllProductsVm> GetProductList()

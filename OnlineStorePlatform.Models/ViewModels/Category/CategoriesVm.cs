@@ -1,5 +1,6 @@
 ﻿namespace OnlineStorePlatform.Models.ViewModels.Category
 {
+    using Products;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -18,5 +19,7 @@
                 return this.Name + this.Id + ".png";
             }
         }
+
+        public IEnumerable<GetAllProductsVm> BestSellersProducts { get; set; }
     }
 }

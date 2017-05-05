@@ -147,6 +147,7 @@
     <Compile Include="ViewModels\Category\CategoriesVm.cs" />
     <Compile Include="ViewModels\Category\DeleteCategoryVm.cs" />
     <Compile Include="ViewModels\Category\EditCategoryVm.cs" />
+    <Compile Include="ViewModels\Home\HomeIndexVm.cs" />
     <Compile Include="ViewModels\Log\AllLogsPageVm.cs" />
     <Compile Include="ViewModels\Log\AllLogVm.cs" />
     <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />

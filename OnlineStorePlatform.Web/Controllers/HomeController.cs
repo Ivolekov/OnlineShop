@@ -5,6 +5,7 @@
     using Data.Interfaces;
     using Models.EntityModels;
     using Models.ViewModels.Category;
+    using Models.ViewModels.Home;
     using Models.ViewModels.Products;
     using Service;
     using Service.Interfaces;
@@ -30,7 +31,7 @@
         [Route]
         public ActionResult Index()
         {
-            IEnumerable<CategoriesVm> vms = this.service.GetAllCategories();
+            HomeIndexVm vms = this.service.GetAllCategories();
             return View(vms);
         }
 
