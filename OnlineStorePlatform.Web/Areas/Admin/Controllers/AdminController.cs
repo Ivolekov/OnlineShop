@@ -23,20 +23,20 @@
     {
         private IAdminService service;
 
-        private IHomeService serviceForCategories;
+        //private IHomeService serviceForCategories;
 
-        public AdminController(IAdminService service, IHomeService serviceForCategories)
+        public AdminController(IAdminService service)
             : base(new OnlineStoreData(new OnlineStorePlatformContext()))
         {
             this.service = service;
-            this.serviceForCategories = serviceForCategories;
+            //this.serviceForCategories = serviceForCategories;
         }
-        public AdminController(IOnlineStoreData data, IAdminService service, IHomeService serviceForCategories) : base(data)
+        public AdminController(IOnlineStoreData data, IAdminService service) : base(data)
         {
             this.service = new AdminService(data);
 
             //HomeSevice is use for AddProduct. Need to display all categories in edit view
-            this.serviceForCategories = new HomeService(data);
+            //this.serviceForCategories = new HomeService(data);
         }
 
         [HttpGet]

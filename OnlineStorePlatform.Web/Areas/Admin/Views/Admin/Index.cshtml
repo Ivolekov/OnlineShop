@@ -13,8 +13,6 @@
 <div class="row">
     <div class="col-sm-5 table-bordered border-color-3" style="border-radius:10px;">
         <h3><strong>@Html.ActionLink("Add Category", "AddNewCategory", null, new { @class = "btn btn-lg btn-info" })</strong></h3>
-        @*<h3><strong>@Html.ActionLink("Add Category", "AddNewCategory", null, new { @class = "btn btn-lg btn-info", data_toggle = "modal", data_target = "#myModal" })</strong></h3>*@
-        @*@Html.Partial("_AddNewCategory")*@
         <table class="table table-hover">
             @foreach (var category in Model.Categories)
             {
@@ -26,19 +24,8 @@
                 </tr>
             }
         </table>
-        @Html.PagedListPager(Model.Categories, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+        @*@Html.PagedListPager(Model.Categories, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })*@
     </div>
-    @*<div class="col-sm-5 table-bordered">
-            <table class="table">
-                <tr>
-                    <th>Role</th>
-                    <th>Count</th>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-            </table>
-        </div>*@
 </div>
 <br />
 <br /><br />
@@ -50,7 +37,6 @@
                 @using (Html.BeginForm())
                   {
                     @Html.TextBox("searchAdmin", null, new {@class="form-control", id = "searchAdmin" })
-                    @*<input type="text" id="searchProducts" name="searchProducts" class="form-control" placeholder="Enter Your Search" aria-describedby="basic-addon2">*@
                     <input class="btn btn-primary form-control" type="submit" value="Search">
                   }
             </div>

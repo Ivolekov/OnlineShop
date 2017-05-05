@@ -46,7 +46,9 @@ namespace OnlineStorePlatform.Web.Controllers
             else
             {
                 this.service.AssignRole(rvm, searchUser);
+                TempData["Rolemessage"] = "Role has been change";
             }
+            
             return this.RedirectToAction("Index");
         }
 

@@ -22,14 +22,14 @@
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
-        //[NotMapped]
-        //public string Image
-        //{
-        //    get
-        //    {
-        //        return this.Name + this.Id + ".png";
-        //    }
-        //    set { Image = value; }
-        //}
+        [NotMapped]
+        public string Image
+        {
+            get
+            {
+                return this.Name + this.Id + ".png";
+            }
+            set { Image = value; }
+        }
     }
 }

@@ -41,8 +41,8 @@
             IEnumerable<CategoriesVm> categoriesVms = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoriesVm>>(categories);
             IEnumerable<GetAllProductsVm> productsVms = Mapper.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(products);
 
-            vm.Categories = categoriesVms.ToPagedList(page ?? 1, 3);
-            vm.Products = productsVms.ToPagedList(page ?? 1, 3);
+            vm.Categories = categoriesVms.ToPagedList(page ?? 1, 20);
+            vm.Products = productsVms.ToPagedList(page ?? 1, 6);
             return vm;
 
 

@@ -57,6 +57,14 @@
                 <strong>@TempData["contactFormMessage"]</strong>
             </div>
         }
+        @if (TempData["Rolemessage"] != null)
+        {
+
+            <div class="alert alert-success alert-dismissable" id="success-alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"><strong>&times;</strong></a>
+                <strong>@TempData["Rolemessage"]</strong>
+            </div>
+        }
         @RenderBody()
         <hr>
         @*<footer>
