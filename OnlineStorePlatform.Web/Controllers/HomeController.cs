@@ -5,12 +5,14 @@
     using Data.Interfaces;
     using Models.EntityModels;
     using Models.ViewModels.Category;
+    using Models.ViewModels.Products;
     using Service;
     using Service.Interfaces;
     using System.Collections.Generic;
     using System.Web.Mvc;
 
     [AllowAnonymous]
+    [HandleError]
     public class HomeController : BaseController
     {
         private IHomeService service;
@@ -51,6 +53,13 @@
             return View();
         }
 
-        
+        public PartialViewResult BestSellers()
+        {
+            IEnumerable<GetAllProductsVm> vms = this.service.TakeFourProducts();
+            return this.PartialView("BestSellers",vms);
+        }
+
+
+
     }
 }

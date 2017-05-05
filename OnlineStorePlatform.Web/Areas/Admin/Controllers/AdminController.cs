@@ -14,9 +14,11 @@
     using Web.Controllers.Base;
     using Data.Interfaces;
     using Data;
+    using Attributes;
 
-    [Authorize(Roles = "admin, manager")]
+    [MyAuthorize(Roles = "admin, manager")]
     [RouteArea("Admin")]
+    [HandleError]
     public class AdminController : BaseController
     {
         private IAdminService service;

@@ -14,7 +14,7 @@
     using Web.Controllers.Base;
 
     [RouteArea("blog")]
-    //[Authorize(Roles ="customer")]
+    [HandleError]
     public class BlogController : BaseController
     {
         private IBlogService service;

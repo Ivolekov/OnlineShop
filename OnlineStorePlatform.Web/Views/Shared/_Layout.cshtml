@@ -59,8 +59,30 @@
         }
         @RenderBody()
         <hr>
-        <footer>
+        @*<footer>
             <p class="">© 2017 - My Online Store Platform</p>
+        </footer>*@
+        <footer id="document-footer" class="container full">
+            <div id="document-footer-content">
+                <p>The best present for your kid's. We can wrap it.</p>
+                <nav>
+                    <ul>
+                        <li>@Html.ActionLink("About Us","About")</li>
+                        <li><a href="http://www.futureplc.com/terms-conditions/" target="_blank">Terms and conditions</a></li>
+                        <li><a href="http://www.futureplc.com/privacy-policy/" target="_blank">Privacy policy</a></li>
+                        <li><a href="http://www.futureplc.com/cookies-policy/" target="_blank">Cookies policy</a></li>
+                        <li><a href="/advertising" target="_blank">Advertise with us</a></li>
+                    </ul>
+                </nav>
+                <p class="vcard copyright">
+                    ©
+                    <span class="adr">
+                        <span class="fn org">
+                            <span class="organisation-name">Ivo Lekov</span>
+                        </span>
+                    </span> This is a project from SoftUni Asp.Net MVC 5 Course 2017.
+                </p>
+            </div>
         </footer>
     </div>
 

@@ -62,10 +62,6 @@
     <Compile Include="Interfaces\IOnlineStoreData.cs" />
     <Compile Include="Interfaces\IOnlineStoreDbContext.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Migrations\201705041630149_AddProductRequirment.cs" />
-    <Compile Include="Migrations\201705041630149_AddProductRequirment.Designer.cs">
-      <DependentUpon>201705041630149_AddProductRequirment.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mocks\FakeCategoryDbSet.cs" />
     <Compile Include="Mocks\FakeDbSet.cs" />
@@ -85,11 +81,6 @@
       <Project>{3C402C05-B9B8-4291-96BF-725B32E41952}</Project>
       <Name>OnlineStorePlatform.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705041630149_AddProductRequirment.resx">
-      <DependentUpon>201705041630149_AddProductRequirment.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

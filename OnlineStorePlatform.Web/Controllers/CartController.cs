@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace OnlineStorePlatform.Web.Controllers
 {
+    [HandleError]
     public class CartController : BaseController
     {
         private ICartService service;

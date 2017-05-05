@@ -10,6 +10,7 @@
     using System.Net;
     using System.Text;
     using Data.Interfaces;
+    using System;
 
     public class HomeService : Service, IHomeService
     {
@@ -65,6 +66,13 @@
 
                 smtpClient.Send(mailMessage);
             }
+        }
+
+        public IEnumerable<GetAllProductsVm> TakeFourProducts()
+        {
+            IEnumerable<Product> products = this.Context.Products.Take(4);
+            IEnumerable<GetAllProductsVm> vms = Mapper.Map<IEnumerable<Product>, IEnumerable<GetAllProductsVm>>(products);
+            return vms;
         }
     }
 }

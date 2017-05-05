@@ -12,6 +12,7 @@ namespace OnlineStorePlatform.Web.Controllers
 {
     [Authorize(Roles = "manager")]
     [RoutePrefix("manager")]
+    [HandleError]
     public class AdminmanagerController : BaseController
     {
         private IAdminmanagerService service;

@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
 
+    [HandleError]
     public class NavController : BaseController
     {
         private INavService service;

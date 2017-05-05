@@ -9,6 +9,9 @@ using System.Web.Mvc;
 namespace OnlineStorePlatform.Web.Controllers
 {
     //TODO: Authorize, pagenation not working, logs for products, extent functionality
+    
+    [Authorize(Roles ="manager")]
+    [HandleError]
     public class LogController : BaseController
     {
         private ILogService service;

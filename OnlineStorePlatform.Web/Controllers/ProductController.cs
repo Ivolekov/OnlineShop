@@ -11,6 +11,7 @@
 
     [RoutePrefix("products")]
     [AllowAnonymous]
+    [HandleError]
     public class ProductController : BaseController
     {
         private IProductService service;

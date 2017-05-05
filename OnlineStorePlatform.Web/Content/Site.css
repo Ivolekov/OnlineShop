@@ -224,3 +224,10 @@ div > form > .edit-category {
 .validation-message {
     color: #ea7066;
 }
+
+.jumbotronIndex {
+    margin-top:20px;
+    background-image: url('../IMG/Backgraund.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
