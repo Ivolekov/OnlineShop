@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using OnlineStorePlatform.Data;
-using OnlineStorePlatform.Models.BindingModels;
 using OnlineStorePlatform.Models.BindingModels.Blog;
 using OnlineStorePlatform.Models.BindingModels.Cart;
 using OnlineStorePlatform.Models.BindingModels.Category;
@@ -11,11 +9,6 @@ using OnlineStorePlatform.Models.ViewModels.Blog;
 using OnlineStorePlatform.Models.ViewModels.Category;
 using OnlineStorePlatform.Models.ViewModels.Order;
 using OnlineStorePlatform.Models.ViewModels.Products;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -27,14 +20,13 @@ namespace OnlineStorePlatform.Web
         protected void Application_Start()
         {
             ConfigerMapper();
-            AreaRegistration.RegisterAllAreas();
+            AreaRegistration.RegisterAllAreas();           
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ModelBinders.Binders.Add(typeof(Cart), new CartBm());
-
-            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<OnlineStorePlatformContext>());
+            
         }
 
         private void ConfigerMapper()

@@ -18,8 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44368</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
@@ -312,6 +311,33 @@
     <Content Include="Areas\Admin\Views\Admin\AddNewProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\EditProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\DeleteProduct.cshtml" />
+    <Content Include="IMG\Articles\Praesent Quis Felis Non Diam Volutpat Sollicitudin.1.png" />
+    <Content Include="IMG\Backgraund.png" />
+    <Content Include="IMG\Categories\Baby Accessories4.png" />
+    <Content Include="IMG\Categories\Baby Clothes2.png" />
+    <Content Include="IMG\Categories\Desks5.png" />
+    <Content Include="IMG\Categories\Kids Furniture Sets3.png" />
+    <Content Include="IMG\Categories\Toys1.png" />
+    <Content Include="IMG\Categories\Toyss1.png" />
+    <Content Include="IMG\Products\Air Jordan8.png" />
+    <Content Include="IMG\Products\Baby Boy14.png" />
+    <Content Include="IMG\Products\Baby Girl13.png" />
+    <Content Include="IMG\Products\Boy10.png" />
+    <Content Include="IMG\Products\Classic15.png" />
+    <Content Include="IMG\Products\Colorfull18.png" />
+    <Content Include="IMG\Products\Dresses19.png" />
+    <Content Include="IMG\Products\Eichhorn Wood Car2.png" />
+    <Content Include="IMG\Products\Fisher Price Elephand4.png" />
+    <Content Include="IMG\Products\Girl11.png" />
+    <Content Include="IMG\Products\Girl16.png" />
+    <Content Include="IMG\Products\Lego Tshirt6.png" />
+    <Content Include="IMG\Products\Modern17.png" />
+    <Content Include="IMG\Products\Nature9.png" />
+    <Content Include="IMG\Products\Nike7.png" />
+    <Content Include="IMG\Products\San Bebe5.png" />
+    <Content Include="IMG\Products\Sunshine12.png" />
+    <Content Include="IMG\Products\Winfun Music Cube1.png" />
+    <Content Include="IMG\Products\Winfun Music Duck3.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Shared\_Categories.cshtml" />
@@ -325,8 +351,13 @@
     <Content Include="Areas\Blog\Views\Blog\Edit.cshtml" />
     <Content Include="Areas\Blog\Views\Blog\Delete.cshtml" />
     <Content Include="Areas\Blog\Views\Shared\_LoginPartial.cshtml" />
+    <None Include="Properties\PublishProfiles\kidstore - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\kidstore - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\kidstore - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\kidstore - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Online Store.pubxml" />
     <None Include="Properties\PublishProfiles\OnlineStore.pubxml" />
+    <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -405,9 +436,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Blog\Models\" />
-    <Folder Include="IMG\Articles\" />
-    <Folder Include="IMG\Categories\" />
-    <Folder Include="IMG\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

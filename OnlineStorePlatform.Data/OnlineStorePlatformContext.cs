@@ -2,15 +2,16 @@ namespace OnlineStorePlatform.Data
 {
     using Interfaces;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using Migrations;
     using Models.EntityModels;
     using System.Data.Entity;
-    using System;
 
     public class OnlineStorePlatformContext : IdentityDbContext<User>, IOnlineStoreDbContext
     {
         public OnlineStorePlatformContext()
             : base("name=OnlineStorePlatformContext", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<OnlineStorePlatformContext, Configuration>());
         }
 
         public DbContext DbContext => this;
