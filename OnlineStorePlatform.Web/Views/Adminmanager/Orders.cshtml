@@ -1,0 +1,67 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<OnlineStorePlatform.Models.ViewModels.Order.OrderVm>
+
+@{
+    ViewBag.Title = "Orders";
+}
+@*<link href="~/Content/Site.css" rel="stylesheet" />*@
+<div id="cont"style="margin-top: 20px;">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Customer Id</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Sent</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>@Html.DisplayFor(vm => item.Id)</td>
+                        <td>@Html.DisplayFor(vm => item.Customer.Id)</td>
+                        <td>@Html.DisplayFor(vm => item.Customer.User.Email)</td>
+                        <td>@Html.DisplayFor(vm => item.DateTime)</td>
+
+
+
+                        @if (item.IsDelivered == false)
+                        {
+                            <td>
+                                @Html.HiddenFor(vm => item.Id)
+                                @Html.CheckBoxFor(vm => item.IsDelivered, new { id = item.Id })
+                                <input onclick="clicked(@Html.DisplayFor(vm=>item.Id))" type="submit" value="Save Changes" class="form-group btn btn-warning btn-sm" />
+
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(vm => item.IsDelivered)
+                            </td>
+                        }
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        @Html.PagedListPager(Model, page => Url.Action("Orders", new { page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        function clicked(id) {
+            $("#cont").load("/manager/sentorders?id=" + id)
+            success: {
+                location.reload();
+            }
+        }
+    </script>
+}

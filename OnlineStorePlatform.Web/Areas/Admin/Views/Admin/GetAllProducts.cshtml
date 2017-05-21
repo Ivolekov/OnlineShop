@@ -1,0 +1,42 @@
+﻿
+@{ 
+    ViewBag.Title = "All Products Data Table";
+}
+
+<div class="row">
+    <table class="myDatatable">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>CategoryName</th>
+                <th>Price</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        var oTable = $("myDatatable").DataTable({
+            "ajax": {
+                "url": '/admin/GetAllProducts',
+                "type": "get",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "Image", "autowidth": true },
+                { "data": "Name", "autowidth": true },
+                { "data": "CategoryName", "autowidth": true },
+                { "data": "Price", "autowidth": true },
+                { "data": "Description", "autowidth": true }
+            ]
+        })
+    })
+    </script>
+}
+
