@@ -23,7 +23,8 @@
 
         public Product GetProductById(int productId)
         {
-           return this.Context.Products.SingleOrDefault(p => p.Id == productId);
+            Product productById = this.Context.Products.GetById(productId);
+            return productById;
         }
 
         public void AddOrderToDatabase(Customer customerEntity)
