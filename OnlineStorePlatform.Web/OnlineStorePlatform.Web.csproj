@@ -318,6 +318,7 @@
     <Content Include="IMG\Categories\Kids Furniture Sets3.png" />
     <Content Include="IMG\Categories\Toys1.png" />
     <Content Include="IMG\Categories\Toyss1.png" />
+    <Content Include="IMG\login-backgroud.png" />
     <Content Include="IMG\Products\Air Jordan8.png" />
     <Content Include="IMG\Products\Baby Boy14.png" />
     <Content Include="IMG\Products\Baby Girl13.png" />
@@ -338,6 +339,7 @@
     <Content Include="IMG\Products\Winfun Music Cube1.png" />
     <Content Include="IMG\Products\Winfun Music Duck3.png" />
     <Content Include="favicon.ico" />
+    <Content Include="IMG\register-background.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Shared\_Categories.cshtml" />

@@ -74,7 +74,7 @@ textarea {
 
 #register-jumbotron {
     margin-top: 5%;
-    background: url('http://dailysignal.com/wp-content/uploads/iStock_000069281027_Full_Cropped-1250x650.png') no-repeat center center;
+    background: url('../IMG/register-background.png') no-repeat fixed;
     /*filter: blur(10px);
     opacity: 0.2;*/
 }
@@ -84,6 +84,7 @@ textarea {
     /*background: url('http://www.freshphotography.com.au/melbourne/2012/06/balloon_photography_melbourne.jpg') no-repeat center center;
     filter: blur(10px);
     opacity: 2;*/
+    background: url('../IMG/login-backgroud.png') no-repeat fixed;
 }
 
 .form-horizontal {
