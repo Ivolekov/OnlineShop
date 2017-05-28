@@ -49,7 +49,7 @@
             {
                 productsCollection.Add(product);
             }
-            Customer customer = this.Context.Customers.SingleOrDefault(c=>c.User.Id == currentUser.Id);
+            Customer customer = this.Context.Customers.FindByPredicate(c=>c.User.Id == currentUser.Id);
             customer.Products = productsCollection;
             return customer;
         }
